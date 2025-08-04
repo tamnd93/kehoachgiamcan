@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kế Hoạch Tăng Cơ Giảm Mỡ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .tab-active {
+            border-color: #4f46e5;
+            color: #4f46e5;
+            background-color: #eef2ff;
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #4b5563;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-700">Kế Hoạch Tăng Cơ Giảm Mỡ Của Tuyết Mi</h1>
+            <p class="text-stone-600 mt-2">Lộ trình 4+ tuần dành cho bạn, được thiết kế để an toàn và bền vững.</p>
+        </header>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-8 rounded-md" role="alert">
+            <p class="font-bold">Lưu ý quan trọng</p>
+            <p>Do có vấn đề về khớp gối và tim, bạn cần tham khảo ý kiến bác sĩ trước khi bắt đầu. Luôn lắng nghe cơ thể và dừng lại ngay nếu cảm thấy không ổn.</p>
+        </div>
+
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex flex-wrap justify-center gap-2 md:gap-6" aria-label="Tabs">
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="overview">Tổng Quan</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="workouts">Lịch Tập</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="diet">Thực Đơn</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="tips">Lời Khuyên</button>
+                </nav>
+            </div>
+        </div>
+
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-indigo-600">Tổng Quan & Tiến Độ</h2>
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm mb-6">
+                    <p class="text-sm font-semibold text-gray-500 mb-2">Mã người dùng: <span id="userIdDisplay" class="text-indigo-600">...</span></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div class="bg-indigo-50 p-6 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-stone-500">Cân Nặng Bắt Đầu</h3>
+                            <p class="text-3xl font-bold text-indigo-600" id="start-weight">90<span class="text-xl">kg</span></p>
+                        </div>
+                        <div class="bg-indigo-50 p-6 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-stone-500">Mục Tiêu</h3>
+                            <p class="text-3xl font-bold text-green-600">55-60<span class="text-xl">kg</span></p>
+                        </div>
+                        <div class="bg-indigo-50 p-6 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-stone-500">Thời Gian Tập</h3>
+                            <p class="text-3xl font-bold text-indigo-600">4<span class="text-xl"> ngày/tuần</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm mb-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Theo Dõi Cân Nặng Hàng Ngày</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 mb-4">
+                        <label for="weight-input" class="sr-only">Nhập cân nặng của bạn</label>
+                        <input type="number" id="weight-input" class="flex-grow w-full md:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nhập cân nặng hiện tại (kg)">
+                        <button id="save-weight-btn" class="w-full md:w-auto bg-indigo-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-indigo-700 transition duration-300">Lưu Cân Nặng</button>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button id="analyze-weight-btn" class="bg-green-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300">Phân Tích Bằng AI ✨</button>
+                    </div>
+
+                    <div id="analysis-message" class="mt-4 p-4 rounded-lg bg-indigo-50 text-gray-800 hidden"></div>
+                    <div id="loading-analysis" class="hidden justify-center items-center mt-4">
+                        <div class="loading-spinner"></div>
+                        <span class="ml-2 text-stone-600">Đang phân tích...</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-center mb-4 text-indigo-600">Lịch Sử Cân Nặng Của Bạn</h3>
+                    <p id="loading-message" class="text-center text-stone-500">Đang tải lịch sử cân nặng...</p>
+                    <ul id="weight-history-list" class="space-y-2"></ul>
+                </div>
+            </section>
+
+            <!-- Workouts Section -->
+            <section id="workouts" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-indigo-600">Lịch Tập Luyện Chi Tiết</h2>
+                <p class="text-center text-stone-600 mb-8">Chọn tuần để xem lịch tập tương ứng. Mỗi buổi tập được thiết kế an toàn cho khớp gối và tim, tập trung vào các bài bodyweight và nhảy dây nhẹ nhàng. Nhấn vào tên bài tập để xem hướng dẫn chi tiết.</p>
+                <div class="flex justify-center mb-6">
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-indigo-500" data-week="1">Tuần 1 & 2</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 rounded-r-md hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-indigo-500" data-week="3">Tuần 3 & 4</button>
+                    </div>
+                </div>
+
+                <div id="workout-plan"></div>
+            </section>
+
+            <!-- Diet Section -->
+            <section id="diet" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-indigo-600">Gợi Ý Thực Đơn & Lựa Chọn</h2>
+                <p class="text-center text-stone-600 mb-8">Ăn ngoài vẫn có thể lành mạnh! Dưới đây là các gợi ý đa dạng và mẹo chọn món giúp bạn tối đa hóa protein, chất xơ và hạn chế dầu mỡ.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4 text-green-700">Gợi Ý Thực Đơn Đa Dạng</h3>
+                        <div class="space-y-6" id="meal-options"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-4 text-green-700 text-center">Thực Phẩm Nên Ăn & Nên Tránh</h3>
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-green-600 mb-2">✅ Nên Ăn</h4>
+                                <ul class="text-stone-700 space-y-1">
+                                    <li>🥩 Thịt nạc (gà, bò, lợn), cá, trứng</li>
+                                    <li>🥑 Các loại đậu, hạt, bơ</li>
+                                    <li>🥦 Rau xanh, rau củ quả</li>
+                                    <li>🍚 Tinh bột tốt (gạo lứt, khoai lang, yến mạch)</li>
+                                    <li>🥛 Sữa chua không đường, sữa tươi tách béo</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-red-600 mb-2">❌ Nên Tránh</h4>
+                                <ul class="text-stone-700 space-y-1">
+                                    <li>🍔 Thức ăn nhanh, đồ chiên rán</li>
+                                    <li>🍩 Đồ ngọt, bánh kẹo, trà sữa</li>
+                                    <li>🍜 Mì tôm, đồ ăn chế biến sẵn</li>
+                                    <li>🍾 Đồ uống có cồn, nước ngọt có ga</li>
+                                    <li>🧂 Thức ăn quá mặn, nhiều gia vị</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4 text-green-700 text-center">Trái Cây Nên Ăn & Nên Tránh</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-bold text-lg text-green-600 mb-2">✅ Nên Ăn</h4>
+                                    <ul class="text-stone-700 space-y-1">
+                                        <li>🍏 Táo, ổi: Giàu chất xơ, vitamin, giúp no lâu và tốt cho tiêu hóa.</li>
+                                        <li>🍊 Bưởi, cam: Chứa nhiều vitamin C, chất chống oxy hóa và ít calo.</li>
+                                        <li>🍓 Dâu tây, dưa hấu: Hàm lượng nước cao, ít đường, giúp cấp nước và giải khát.</li>
+                                        <li>🥑 Bơ: Giàu chất béo không bão hòa đơn lành mạnh, giúp no lâu.</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-lg text-red-600 mb-2">❌ Nên Tránh</h4>
+                                    <ul class="text-stone-700 space-y-1">
+                                        <li>🥭 Xoài chín, vải, nhãn: Chứa nhiều đường tự nhiên, dễ gây tăng đường huyết.</li>
+                                        <li>🍌 Chuối chín: Có nhiều calo hơn các loại trái cây khác. Nên ăn khi cần bổ sung năng lượng nhanh.</li>
+                                        <li>🍈 Sầu riêng, mít: Chứa hàm lượng đường và calo rất cao.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Tips Section -->
+            <section id="tips" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-indigo-600">Mẹo Duy Trì Lâu Dài</h2>
+                <p class="text-center text-stone-600 mb-8">Xây dựng thói quen tốt là chìa khóa thành công. Hãy áp dụng những mẹo nhỏ này vào cuộc sống hàng ngày của bạn.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">⏰</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Chia nhỏ bữa ăn</h3>
+                            <p class="text-stone-600">Ăn 5-6 bữa nhỏ thay vì 3 bữa lớn để duy trì năng lượng và hạn chế cảm giác đói.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">🚶‍♀️</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Tăng cường vận động nhẹ</h3>
+                            <p class="text-stone-600">Đi bộ, leo cầu thang thay vì đi thang máy, dành 10 phút đi lại sau mỗi giờ làm việc.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">🧘</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Thực hành thiền/tập thở</h3>
+                            <p class="text-stone-600">Chỉ 5-10 phút mỗi ngày giúp giảm hormone căng thẳng, tránh tích mỡ bụng.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">📝</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Ghi chép tiến độ</h3>
+                            <p class="text-stone-600">Hãy ghi lại cân nặng, số đo và cảm nhận mỗi tuần để theo dõi sự thay đổi và giữ động lực.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">👩‍⚕️</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Lắng nghe cơ thể</h3>
+                            <p class="text-stone-600">Nếu cảm thấy đau hoặc mệt, hãy nghỉ ngơi. Phục hồi là một phần quan trọng của quá trình.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm flex items-start gap-4">
+                        <span class="text-3xl">🥰</span>
+                        <div>
+                            <h3 class="font-bold text-lg">Yêu thương bản thân</h3>
+                            <p class="text-stone-600">Giảm cân là một hành trình, không phải một cuộc chiến. Hãy kiên nhẫn và tự thưởng cho những nỗ lực của mình.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the Canvas environment.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
+        let db, auth;
+        const START_WEIGHT = 90;
+        const GOAL_WEIGHT_RANGE = "55-60";
+        const USER_NAME = "Tuyết Mi";
+        const HEALTH_CONCERNS = "vấn đề về khớp gối và tim";
+
+        // Data for workout and meal plans remains unchanged.
+        const workoutData = {
+            week1: {
+                title: 'Tuần 1 & 2: Giai đoạn làm quen',
+                days: [
+                    {
+                        name: 'Ngày 1 & 3: Thân dưới & Cardio nhẹ',
+                        exercises: [
+                            {
+                                title: 'Khởi động (10 phút)',
+                                instructions: 'Đi bộ tại chỗ, xoay cổ tay cổ chân, xoay khớp gối nhẹ nhàng, đá chân ra trước-sau-bên hông.'
+                            },
+                            {
+                                title: 'Wall Sit (ngồi dựa tường) - 45s',
+                                instructions: 'Đứng dựa lưng vào tường, từ từ hạ thấp cơ thể như đang ngồi trên một chiếc ghế vô hình. Lưng và mông áp sát tường. Giữ đầu gối một góc 90 độ, cẩn thận không để đầu gối vượt quá mũi chân. Cảm nhận sự căng cơ ở đùi. Dừng lại nếu thấy đau khớp gối.'
+                            },
+                            {
+                                title: 'Glute Bridge (cầu hông) - 20 lần',
+                                instructions: 'Nằm ngửa, gập gối, hai bàn chân đặt trên sàn. Siết chặt cơ mông và đẩy hông lên cao cho đến khi vai, hông và đầu gối tạo thành một đường thẳng. Giữ 1-2 giây rồi từ từ hạ xuống. Hạn chế dùng lực từ lưng dưới.'
+                            },
+                            {
+                                title: 'Standing Calf Raise (nhón gót) - 25 lần',
+                                instructions: 'Đứng thẳng, hai chân rộng bằng vai. Từ từ nhón gót chân lên cao nhất có thể, siết chặt bắp chân. Giữ 1 giây rồi hạ xuống. Có thể bám vào tường hoặc ghế để giữ thăng bằng.'
+                            },
+                            {
+                                title: 'Jumping Jack (Low Impact) - 45s',
+                                instructions: 'Đứng thẳng. Bước chân phải sang ngang đồng thời vung hai tay lên cao. Bước chân phải về, đưa tay về. Đổi chân. Lặp lại liên tục, đây là phiên bản không nhảy để giảm áp lực lên đầu gối.'
+                            },
+                             {
+                                title: 'Nhảy dây nhẹ nhàng - 2 phút',
+                                instructions: 'Nhảy dây với nhịp độ chậm, chỉ nảy nhẹ hai chân trên mặt đất. Không cần nâng gối quá cao, tập trung vào việc giữ nhịp đều và hơi thở ổn định. Chỉ nhảy trên mũi bàn chân.'
+                            },
+                             {
+                                title: 'Plank (hít thở) - 45s',
+                                instructions: 'Chống khuỷu tay và mũi chân xuống sàn, giữ lưng thẳng như một tấm ván. Siết chặt cơ bụng và mông. Hít thở sâu và đều. Dừng lại nếu thấy lưng bị võng.'
+                            },
+                            {
+                                title: 'Giãn cơ (10 phút)',
+                                instructions: 'Giãn cơ đùi trước, đùi sau, bắp chân, hông và vai sau buổi tập.'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Ngày 2 & 4: Thân trên & Core',
+                        exercises: [
+                            {
+                                title: 'Khởi động (10 phút)',
+                                instructions: 'Tương tự ngày 1 & 3: đi bộ tại chỗ, xoay các khớp.'
+                            },
+                            {
+                                title: 'Push-ups (trên tường hoặc quỳ gối) - 10-15 lần',
+                                instructions: 'Chống tay vào tường hoặc chống quỳ gối xuống sàn. Lưng thẳng. Từ từ hạ thấp người xuống, khuỷu tay ép sát người. Đẩy người lên trở lại. Tập trung vào cảm giác cơ ngực và cơ tay.'
+                            },
+                            {
+                                title: 'Triceps Dip (trên ghế) - 12 lần',
+                                instructions: 'Ngồi trên mép ghế, hai tay bám vào mép ghế, hai chân duỗi thẳng hoặc gập gối. Nhấc mông khỏi ghế, từ từ hạ thấp cơ thể xuống bằng cách gập khuỷu tay ra sau. Khi bắp tay song song với sàn, dùng lực tay sau đẩy người lên. Giữ lưng thẳng và gần ghế.'
+                            },
+                            {
+                                title: 'Leg Raise (nâng chân) - 20 lần',
+                                instructions: 'Nằm ngửa, hai tay đặt dưới mông để hỗ trợ lưng. Từ từ nâng hai chân lên cho đến khi vuông góc với sàn. Hạ chân xuống nhưng không chạm sàn. Lặp lại. Tập trung vào cơ bụng, tránh dùng lực ở lưng dưới.'
+                            },
+                            {
+                                title: 'Bird Dog (chim chó) - 20 lần',
+                                instructions: 'Quỳ trên hai tay và hai gối, giữ lưng thẳng. Từ từ duỗi thẳng một tay về phía trước và một chân đối diện ra sau. Giữ 1 giây rồi đưa về vị trí ban đầu. Đổi bên. Tập trung vào giữ thăng bằng và siết cơ bụng.'
+                            },
+                            {
+                                title: 'Nhảy dây nhẹ nhàng - 2 phút',
+                                instructions: 'Như mô tả ở Ngày 1 & 3.'
+                            },
+                            {
+                                title: 'Plank (hít thở) - 45s',
+                                instructions: 'Như mô tả ở Ngày 1 & 3.'
+                            },
+                             {
+                                title: 'Giãn cơ (10 phút)',
+                                instructions: 'Giãn cơ tay, vai, ngực, lưng, bụng sau buổi tập.'
+                            }
+                        ]
+                    }
+                ]
+            },
+            week3: {
+                title: 'Tuần 3 & 4: Giai đoạn tăng cường',
+                days: [
+                     {
+                        name: 'Ngày 1 & 3: Thân dưới & Cardio',
+                        exercises: [
+                            {
+                                title: 'Khởi động (10 phút)',
+                                instructions: 'Tương tự như các tuần trước.'
+                            },
+                            {
+                                title: 'Wall Sit (ngồi dựa tường) - 60s',
+                                instructions: 'Tăng thời gian giữ tư thế. Nếu đau gối, có thể giảm thời gian hoặc chỉ ngồi ở góc 45 độ.'
+                            },
+                            {
+                                title: 'Glute Bridge (cầu hông) - 25 lần',
+                                instructions: 'Tăng số lần lặp lại. Cố gắng siết mông ở đỉnh động tác thật chặt.'
+                            },
+                            {
+                                title: 'Static Lunges (đứng tấn tại chỗ) - 12 lần/chân',
+                                instructions: 'Đứng thẳng, bước một chân lên trước. Hạ thấp người xuống cho đến khi cả hai đầu gối tạo thành góc 90 độ. Cẩn thận không để đầu gối trước vượt quá mũi chân. Đứng lên trở lại. Đây là phiên bản đứng tại chỗ để hạn chế tác động.'
+                            },
+                            {
+                                title: 'Nhảy dây - 3 phút',
+                                instructions: 'Tăng thời gian nhảy. Cố gắng duy trì nhịp độ ổn định, không quá nhanh để không gây áp lực lên tim và gối.'
+                            },
+                             {
+                                title: 'Plank (hít thở) - 60s',
+                                instructions: 'Tăng thời gian giữ tư thế. Cố gắng giữ lưng thẳng tuyệt đối.'
+                            },
+                            {
+                                title: 'Giãn cơ (10 phút)',
+                                instructions: 'Giãn cơ đùi, bắp chân, hông, vai.'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Ngày 2 & 4: Thân trên & Core',
+                        exercises: [
+                            {
+                                title: 'Khởi động (10 phút)',
+                                instructions: 'Tương tự như các tuần trước.'
+                            },
+                            {
+                                title: 'Push-ups (trên tường hoặc quỳ gối) - 15-20 lần',
+                                instructions: 'Tăng số lần lặp lại. Tập trung vào kỹ thuật.'
+                            },
+                            {
+                                title: 'Leg Raise (nâng chân) - 25 lần',
+                                instructions: 'Tăng số lần lặp lại.'
+                            },
+                            {
+                                title: 'Superman (siêu nhân) - 15 lần',
+                                instructions: 'Nằm sấp, hai tay duỗi thẳng về phía trước. Từ từ nâng tay, ngực và hai chân lên khỏi sàn. Giữ 1 giây rồi hạ xuống. Giúp tăng cường cơ lưng dưới.'
+                            },
+                            {
+                                title: 'Nhảy dây - 3 phút',
+                                instructions: 'Như mô tả ở Ngày 1 & 3.'
+                            },
+                             {
+                                title: 'Plank (hít thở) - 60s',
+                                instructions: 'Tăng thời gian giữ tư thế.'
+                            },
+                            {
+                                title: 'Giãn cơ (10 phút)',
+                                instructions: 'Giãn cơ tay, vai, ngực, lưng, bụng.'
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        const mealOptionsData = {
+            breakfast: [
+                { name: 'Bún riêu cua', cal: '~450', desc: 'Ăn nhiều riêu cua, đậu hũ và rau. Yêu cầu giảm bún, tránh tóp mỡ, riêu cua chiên.' },
+                { name: 'Phở bò', cal: '~400', desc: 'Chọn bò nạc, nhiều rau giá. Yêu cầu giảm một nửa lượng bánh phở. Tránh thêm nhiều tương ớt.' },
+                { name: 'Bún chả', cal: '~480', desc: 'Ăn nhiều chả nướng và rau sống. Hạn chế chả giò chiên và nước chấm quá ngọt.' },
+                { name: 'Xôi gà xé', cal: '~420', desc: 'Chọn xôi ít hành phi, ăn nhiều thịt gà luộc/nướng. Có thể ăn kèm dưa chuột.' },
+                { name: 'Bánh mì ốp la', cal: '~350', desc: 'Hạn chế pate và bơ, ăn kèm nhiều rau dưa chuột. Chỉ ăn một nửa ổ bánh mì.' }
+            ],
+            lunchDinner: [
+                { name: 'Cơm tấm', cal: '~550', desc: 'Chọn sườn nướng, thêm trứng ốp la hoặc bì. Ăn kèm nhiều dưa leo và cà chua. Ăn khoảng 1/2 chén cơm.' },
+                { name: 'Bún thịt nướng', cal: '~500', desc: 'Ăn nhiều thịt, chả giò nướng và rau sống. Hạn chế chả giò chiên.' },
+                { name: 'Gỏi cuốn/Gỏi gà', cal: '~300', desc: 'Một lựa chọn lý tưởng, giàu protein và chất xơ. Hạn chế chấm nhiều sốt béo.' },
+                { name: 'Cơm văn phòng', cal: '~500', desc: 'Chọn suất ăn có nhiều rau, món mặn là thịt/cá kho hoặc luộc, hạn chế đồ chiên xào.' },
+                { name: 'Cá nướng/hấp', cal: '~350', desc: 'Ăn kèm với cơm gạo lứt hoặc khoai lang, rau luộc. Món ăn này ít calo và giàu protein.' },
+                { name: 'Salad gà/tôm', cal: '~300', desc: 'Chọn salad với ức gà hoặc tôm, nhiều rau xanh. Yêu cầu sốt dressing ít béo hoặc trộn dầu giấm.' }
+            ],
+            snacks: [
+                 { name: 'Sữa chua không đường', cal: '~100', desc: 'Có thể ăn kèm với trái cây ít ngọt.' },
+                 { name: 'Khoai lang luộc', cal: '~150', desc: 'Một lựa chọn tinh bột tốt, tạo cảm giác no lâu.' },
+                 { name: 'Trái cây ít ngọt', cal: '~100-150', desc: 'Táo, bưởi, ổi là những lựa chọn tốt.' },
+                 { name: 'Trứng luộc', cal: '~70', desc: 'Giàu protein, giúp no lâu và hạn chế thèm ăn.' }
+            ]
+        };
+
+        function renderWorkoutPlan(week) {
+            const planContainer = document.getElementById('workout-plan');
+            const data = week === 1 ? workoutData.week1 : workoutData.week3;
+            
+            let html = `<h3 class="text-xl font-semibold mb-4 text-center">${data.title}</h3>`;
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-6">';
+            
+            data.days.forEach(day => {
+                html += `
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold text-lg text-indigo-700 mb-4">${day.name}</h4>
+                        <div class="space-y-4">
+                            ${day.exercises.map(ex => `
+                                <details class="border-b border-gray-200">
+                                    <summary class="flex justify-between items-center py-2">
+                                        <span class="font-medium">${ex.title}</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 transform transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </summary>
+                                    <p class="py-2 text-stone-600 text-sm">${ex.instructions}</p>
+                                </details>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            planContainer.innerHTML = html;
+        }
+
+        function renderMealOptions() {
+            const mealContainer = document.getElementById('meal-options');
+            let html = '';
+            
+            const renderSection = (title, items) => {
+                let sectionHtml = `<div><h4 class="font-bold text-lg text-indigo-700">${title}</h4><ul class="space-y-2 mt-2">`;
+                items.forEach(item => {
+                    sectionHtml += `
+                        <li class="p-3 bg-indigo-50 rounded-lg">
+                            <strong class="text-stone-900">${item.name}</strong> <span class="text-sm text-stone-500">(${item.cal} cal)</span>
+                            <p class="text-sm text-stone-600 mt-1">${item.desc}</p>
+                        </li>
+                    `;
+                });
+                sectionHtml += `</ul></div>`;
+                return sectionHtml;
+            };
+
+            html += renderSection('Bữa sáng', mealOptionsData.breakfast);
+            html += renderSection('Bữa trưa & tối', mealOptionsData.lunchDinner);
+            html += renderSection('Bữa phụ & Ăn vặt', mealOptionsData.snacks);
+            
+            mealContainer.innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.content-section');
+            const weekButtons = document.querySelectorAll('.week-btn');
+            
+            const analysisMessageDiv = document.getElementById('analysis-message');
+            const loadingAnalysisDiv = document.getElementById('loading-analysis');
+
+            function setActiveTab(tabId) {
+                tabs.forEach(tab => {
+                    if (tab.dataset.tab === tabId) {
+                        tab.classList.add('tab-active');
+                        tab.classList.remove('tab-inactive');
+                    } else {
+                        tab.classList.add('tab-inactive');
+                        tab.classList.remove('tab-active');
+                    }
+                });
+
+                contents.forEach(content => {
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    setActiveTab(tab.dataset.tab);
+                });
+            });
+             
+            weekButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    weekButtons.forEach(btn => btn.classList.remove('bg-indigo-200'));
+                    button.classList.add('bg-indigo-200');
+                    renderWorkoutPlan(parseInt(button.dataset.week));
+                });
+            });
+
+            // Initial state
+            setActiveTab('overview');
+            renderWorkoutPlan(1);
+            weekButtons[0].classList.add('bg-indigo-200');
+            renderMealOptions();
+            
+            // Firebase setup and authentication
+            let userId = null;
+            let firestoreInitialized = false;
+            
+            if (Object.keys(firebaseConfig).length > 0) {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    db = getFirestore(app);
+                    
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            document.getElementById('userIdDisplay').textContent = userId;
+                            firestoreInitialized = true;
+                            loadWeightHistory();
+                            console.log("Firebase initialized and user authenticated.");
+                        } else {
+                            userId = null;
+                            document.getElementById('userIdDisplay').textContent = 'Chưa đăng nhập';
+                            firestoreInitialized = false;
+                            console.log("User is signed out.");
+                        }
+                    });
+
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken).catch((error) => {
+                            console.error("Error signing in with custom token:", error);
+                            signInAnonymously(auth).catch(e => console.error("Anonymous sign-in failed:", e));
+                        });
+                    } else {
+                        signInAnonymously(auth).catch(e => console.error("Anonymous sign-in failed:", e));
+                    }
+                } catch (error) {
+                    console.error("Firebase initialization failed:", error);
+                }
+            } else {
+                console.warn("Firebase config is missing. Firestore functionality will be disabled.");
+                document.getElementById('loading-message').textContent = 'Tính năng lưu trữ đang bị vô hiệu hóa.';
+            }
+
+            // Function to load and display weight history
+            function loadWeightHistory() {
+                if (!firestoreInitialized || !userId) {
+                    console.warn("Firestore not initialized or user not authenticated. Cannot load weight history.");
+                    return;
+                }
+                const historyList = document.getElementById('weight-history-list');
+                const loadingMessage = document.getElementById('loading-message');
+                loadingMessage.style.display = 'block';
+                historyList.innerHTML = '';
+
+                const userWeightRef = collection(db, `artifacts/${appId}/users/${userId}/weight_history`);
+                onSnapshot(userWeightRef, (snapshot) => {
+                    const weightEntries = [];
+                    snapshot.forEach(doc => {
+                        weightEntries.push(doc.data());
+                    });
+                    
+                    // Sort by timestamp in descending order, safely handling potential null timestamps
+                    weightEntries.sort((a, b) => {
+                        const timeA = a.timestamp ? a.timestamp.seconds : 0;
+                        const timeB = b.timestamp ? b.timestamp.seconds : 0;
+                        return timeB - timeA;
+                    });
+                    
+                    if (weightEntries.length === 0) {
+                        historyList.innerHTML = '<li class="text-center text-stone-500">Chưa có dữ liệu nào được lưu. Hãy nhập cân nặng của bạn để bắt đầu.</li>';
+                    } else {
+                        // Display the last 5 entries
+                        historyList.innerHTML = weightEntries.slice(0, 5).map(entry => {
+                            const date = entry.timestamp ? new Date(entry.timestamp.seconds * 1000) : new Date();
+                            const formattedDate = date.toLocaleString('vi-VN', {
+                                day: '2-digit', month: '2-digit', year: 'numeric',
+                                hour: '2-digit', minute: '2-digit'
+                            });
+                            return `<li class="flex justify-between items-center bg-gray-100 p-3 rounded-md shadow-sm">
+                                <span class="font-medium">Cân nặng: <strong class="text-indigo-600">${entry.weight} kg</strong></span>
+                                <span class="text-sm text-stone-500">${formattedDate}</span>
+                            </li>`;
+                        }).join('');
+                    }
+                    loadingMessage.style.display = 'none';
+                }, (error) => {
+                    console.error("Error fetching weight history:", error);
+                    loadingMessage.textContent = 'Lỗi khi tải dữ liệu.';
+                });
+            }
+
+            // Function to handle exponential backoff for API calls
+            async function fetchWithExponentialBackoff(url, options, retries = 5, delay = 1000) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429 && retries > 0) { // Too Many Requests
+                        console.log(`Rate limit hit. Retrying in ${delay}ms...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchWithExponentialBackoff(url, options, retries - 1, delay * 2);
+                    }
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`API error: ${JSON.stringify(errorData)}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (retries > 0) {
+                        console.log(`Fetch failed. Retrying in ${delay}ms...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchWithExponentialBackoff(url, options, retries - 1, delay * 2);
+                    }
+                    throw error;
+                }
+            }
+
+            // Function to analyze weight history using Gemini API
+            async function analyzeWeightWithGemini() {
+                if (!firestoreInitialized || !userId) {
+                    analysisMessageDiv.innerHTML = '<p class="text-red-600">Lỗi: Vui lòng đăng nhập để sử dụng tính năng này.</p>';
+                    analysisMessageDiv.classList.remove('hidden');
+                    return;
+                }
+
+                // Show loading indicator
+                analysisMessageDiv.classList.add('hidden');
+                loadingAnalysisDiv.classList.remove('hidden');
+                loadingAnalysisDiv.classList.add('flex');
+
+                try {
+                    // Fetch all weight entries
+                    const userWeightRef = collection(db, `artifacts/${appId}/users/${userId}/weight_history`);
+                    const snapshot = await getDocs(userWeightRef);
+                    const weightEntries = [];
+                    snapshot.forEach(doc => {
+                        weightEntries.push(doc.data());
+                    });
+                    
+                    console.log('Fetched weight entries:', weightEntries);
+
+                    if (!Array.isArray(weightEntries) || weightEntries.length < 2) {
+                        analysisMessageDiv.innerHTML = '<p>Vui lòng nhập ít nhất hai lần cân nặng để có thể phân tích.</p>';
+                        analysisMessageDiv.classList.remove('hidden');
+                        return;
+                    }
+
+                    // Sort by timestamp, safely handling potential null timestamps
+                    weightEntries.sort((a, b) => (a.timestamp?.seconds ?? 0) - (b.timestamp?.seconds ?? 0));
+                    
+                    const weightHistoryText = weightEntries.map(entry => {
+                        const date = entry.timestamp ? new Date(entry.timestamp.seconds * 1000).toLocaleDateString('vi-VN') : 'Không có ngày';
+                        return `${date}: ${entry.weight}kg`;
+                    }).join('\n');
+                    
+                    const prompt = `Bạn là một trợ lý sức khỏe cá nhân. Dựa trên lịch sử cân nặng của người dùng ${USER_NAME}, hãy đưa ra một lời phân tích chi tiết, tích cực, vui nhộn và mang tính động viên. Mục tiêu của người dùng là giảm cân từ ${START_WEIGHT}kg xuống còn ${GOAL_WEIGHT_RANGE}kg. Người dùng có vấn đề sức khỏe: ${HEALTH_CONCERNS}, nên lời khuyên cần nhẹ nhàng và an toàn.
+                    
+                    Dưới đây là lịch sử cân nặng của ${USER_NAME}:
+                    ${weightHistoryText}
+                    
+                    Hãy phân tích tiến độ, đưa ra nhận xét về sự thay đổi, và gợi ý những bước tiếp theo một cách cụ thể, thân thiện và động viên. Đặc biệt, hãy chuyển đổi kết quả thành một đối tượng JSON có cấu trúc như sau:
+                    {
+                      "title": "Tiêu đề vui nhộn",
+                      "summary": "Tóm tắt ngắn gọn, tích cực",
+                      "sections": [
+                        { "heading": "Tiêu đề phần 1", "content": "Nội dung phần 1", "icon": "biểu tượng emoji" },
+                        { "heading": "Tiêu đề phần 2", "content": "Nội dung phần 2", "icon": "biểu tượng emoji" }
+                      ],
+                      "motivationalQuote": "Một câu nói tạo động lực"
+                    }
+                    `;
+                    
+                    const payload = { 
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        generationConfig: {
+                            responseMimeType: "application/json",
+                            responseSchema: {
+                                "type": "OBJECT",
+                                "properties": {
+                                    "title": { "type": "STRING" },
+                                    "summary": { "type": "STRING" },
+                                    "sections": {
+                                        "type": "ARRAY",
+                                        "items": {
+                                            "type": "OBJECT",
+                                            "properties": {
+                                                "heading": { "type": "STRING" },
+                                                "content": { "type": "STRING" },
+                                                "icon": { "type": "STRING" }
+                                            }
+                                        }
+                                    },
+                                    "motivationalQuote": { "type": "STRING" }
+                                }
+                            }
+                        }
+                    };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetchWithExponentialBackoff(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result?.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        let jsonText = result.candidates[0].content.parts[0].text;
+                        console.log("Raw API response text:", jsonText); // Log raw response for debugging
+
+                        // Handle cases where the model wraps the JSON in markdown code fences
+                        if (jsonText.startsWith("```json") && jsonText.endsWith("```")) {
+                            jsonText = jsonText.substring(7, jsonText.length - 3).trim();
+                        }
+
+                        try {
+                            const analysisData = JSON.parse(jsonText);
+                            
+                            // Check if the JSON is valid before rendering
+                            if (analysisData && analysisData.sections && Array.isArray(analysisData.sections)) {
+                                // Dynamically generate HTML from the JSON data
+                                let htmlOutput = `
+                                    <div class="space-y-4">
+                                        <h3 class="text-xl md:text-2xl font-bold text-indigo-700">${analysisData.title}</h3>
+                                        <p class="text-sm text-stone-600">${analysisData.summary}</p>
+                                        <div class="space-y-6 mt-4">
+                                            ${analysisData.sections.map(section => `
+                                                <div class="flex items-start gap-4">
+                                                    <span class="text-2xl">${section.icon}</span>
+                                                    <div>
+                                                        <h4 class="font-semibold text-lg text-indigo-600">${section.heading}</h4>
+                                                        <p class="text-stone-700">${section.content}</p>
+                                                    </div>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                        <div class="mt-6 pt-4 border-t-2 border-indigo-200">
+                                            <p class="italic text-center font-medium text-indigo-800">"${analysisData.motivationalQuote}"</p>
+                                        </div>
+                                    </div>
+                                `;
+
+                                analysisMessageDiv.innerHTML = htmlOutput;
+                                analysisMessageDiv.classList.remove('hidden');
+                            } else {
+                                throw new Error('Lỗi: Dữ liệu phân tích từ AI không hợp lệ. Vui lòng thử lại.');
+                            }
+                        } catch (parseError) {
+                            console.error("Failed to parse JSON from API response:", parseError);
+                            console.error("Malformed JSON:", jsonText);
+                            throw new Error('Lỗi: Dữ liệu phân tích từ AI không hợp lệ. Vui lòng thử lại.');
+                        }
+                    } else {
+                        throw new Error('Cấu trúc phản hồi từ API không mong muốn hoặc không có nội dung.');
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API for analysis:", error);
+                    analysisMessageDiv.innerHTML = `<p class="text-red-600">${error.message}</p>`;
+                    analysisMessageDiv.classList.remove('hidden');
+                } finally {
+                    // Hide loading indicator regardless of success or failure
+                    loadingAnalysisDiv.classList.add('hidden');
+                    loadingAnalysisDiv.classList.remove('flex');
+                }
+            }
+
+            // Event listener for saving weight
+            document.getElementById('save-weight-btn').addEventListener('click', async () => {
+                if (!firestoreInitialized || !userId) {
+                    analysisMessageDiv.innerHTML = '<p class="text-red-600">Lỗi: Vui lòng đăng nhập để lưu cân nặng.</p>';
+                    analysisMessageDiv.classList.remove('hidden');
+                    return;
+                }
+                const weightInput = document.getElementById('weight-input');
+                const weight = parseFloat(weightInput.value);
+
+                if (isNaN(weight) || weight <= 0) {
+                    analysisMessageDiv.innerHTML = '<p class="text-red-600">Vui lòng nhập một số cân nặng hợp lệ.</p>';
+                    analysisMessageDiv.classList.remove('hidden');
+                    return;
+                }
+                
+                try {
+                    const userWeightRef = collection(db, `artifacts/${appId}/users/${userId}/weight_history`);
+                    await addDoc(userWeightRef, {
+                        weight: weight,
+                        timestamp: serverTimestamp()
+                    });
+                    weightInput.value = ''; // Clear input after saving
+                    analysisMessageDiv.innerHTML = '<p class="text-gray-600">Cân nặng đã được lưu thành công! 💪</p>';
+                    analysisMessageDiv.classList.remove('hidden');
+                    console.log("Weight saved successfully!");
+                } catch (e) {
+                    console.error("Error adding document: ", e);
+                    analysisMessageDiv.innerHTML = '<p class="text-red-600">Đã xảy ra lỗi khi lưu cân nặng.</p>';
+                    analysisMessageDiv.classList.remove('hidden');
+                }
+            });
+            
+            document.getElementById('analyze-weight-btn').addEventListener('click', analyzeWeightWithGemini);
+            
+            document.querySelectorAll('details').forEach(detail => {
+                detail.addEventListener('toggle', () => {
+                    const icon = detail.querySelector('svg');
+                    if (detail.open) {
+                        icon.style.transform = 'rotate(90deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
