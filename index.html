@@ -670,7 +670,18 @@
                             }
                         }
                     };
-                    const apiKey = "";
+                    
+                    // THAY "YOUR_API_KEY_HERE" BẰNG KHÓA API CỦA BẠN TỪ GOOGLE AI STUDIO
+                    const apiKey = "AIzaSyC6-hOHavm6hd8Y4u4gK6G2KG9Ev9SPQjs";
+                    
+                    if (!apiKey || apiKey === "YOUR_API_KEY_HERE") {
+                        analysisMessageDiv.innerHTML = '<p class="text-red-600">Lỗi: Vui lòng dán khóa API của bạn vào biến `apiKey` trong mã nguồn để sử dụng chức năng này.</p>';
+                        analysisMessageDiv.classList.remove('hidden');
+                        loadingAnalysisDiv.classList.add('hidden');
+                        loadingAnalysisDiv.classList.remove('flex');
+                        return;
+                    }
+                    
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                     
                     const response = await fetchWithExponentialBackoff(apiUrl, {
