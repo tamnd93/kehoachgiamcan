@@ -1,234 +1,683 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kế Hoạch Giảm Mỡ 12 Tuần — Gia An</title>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body{font-family:'Be Vietnam Pro',sans-serif}
-    .note{background:#fff7ed;border-left:4px solid #f59e0b;padding:12px;border-radius:6px}
-    .section-title{font-size:1.125rem;font-weight:600}
-    .card{background:#f8fafc;border-radius:8px;padding:14px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kế Hoạch Giảm Mỡ 12 Tuần Của Gia An</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .tab-active {
+            border-color: #ef4444; /* Red color for a vibrant look */
+            color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #4b5563;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        /* Style for details/summary (accordion) */
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+            outline: none; /* Remove focus outline on click */
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary svg {
+            transform: rotate(90deg);
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #ef4444;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="bg-stone-50 text-stone-800 py-8">
-  <main class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-10">
-    <header class="text-center mb-6">
-      <h1 class="text-2xl md:text-3xl font-bold text-indigo-700">Kế Hoạch Giảm Mỡ 12 Tuần — Gia An</h1>
-    </header>
+<body class="bg-stone-50 text-stone-800">
 
-    <section class="mb-6">
-      <h2 class="section-title">Thông tin người áp dụng</h2>
-      <ul class="list-disc pl-5 mt-2 text-stone-700">
-        <li>Tên: <strong>Gia An</strong></li>
-        <li>Tuổi: <strong>16</strong></li>
-        <li>Chiều cao: <strong>165 cm</strong></li>
-        <li>Cân nặng: <strong>67 kg</strong></li>
-        <li>Tiền sử: <strong>khó thở khi ở trong máy lạnh</strong> — lưu ý điều chỉnh cardio & môi trường tập (xem phần phục hồi).</li>
-        <li>Thực phẩm tránh: <strong>trứng luộc</strong> — đã loại trong thực đơn mẫu.</li>
-        <li>Mức kinh nghiệm: <strong>Mới tập</strong></li>
-      </ul>
-    </section>
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-red-600">Kế Hoạch Giảm Mỡ 12 Tuần Của Gia An</h1>
+            <p class="text-stone-600 mt-2">Lộ trình 12 tuần an toàn, khoa học, phù hợp cho người mới tập.</p>
+        </header>
 
-    <section class="mb-6">
-      <h2 class="section-title">Tóm tắt mục tiêu & chỉ số chính</h2>
-      <ul class="mt-2 space-y-2 text-stone-700">
-        <li><strong>Mục tiêu:</strong> Giảm mỡ trong 12 tuần, giữ tối đa cơ bắp</li>
-        <li><strong>Thời gian:</strong> 12 tuần</li>
-        <li><strong>Buổi tập/tuần:</strong> 5 buổi</li>
-        <li><strong>Cardio:</strong> Nhẹ nhàng, 3 buổi/tuần (đi bộ nhanh, xe đạp nhẹ)</li>
-      </ul>
-    </section>
-
-    <section class="mb-6">
-      <h2 class="section-title">Dinh dưỡng (đã tính sẵn)</h2>
-      <p class="text-stone-700 mt-2">Các con số dưới đây đã được tính sẵn dựa trên thông tin của Gia An (16 tuổi, 165 cm, 67 kg, hoạt động tập luyện 5 buổi/tuần). Người dùng chỉ cần làm theo các khẩu phần và mẫu thực đơn.</p>
-
-      <div class="mt-4 grid gap-4 md:grid-cols-2">
-        <div class="card">
-          <h3 class="font-semibold">Năng lượng mục tiêu</h3>
-          <p class="mt-1">TDEE ước tính ≈ <strong>~1,900 – 2,000 kcal/ngày</strong> (vì tuổi trẻ và hoạt động). Mục tiêu giảm mỡ an toàn: <strong>~1,650–1,700 kcal/ngày</strong> (~ -15% so với TDEE)</p>
-        </div>
-        <div class="card">
-          <h3 class="font-semibold">Macro đề xuất</h3>
-          <ul class="mt-1">
-            <li><strong>Protein:</strong> 2.0 g/kg → ~<strong>134 g</strong> (~536 kcal)</li>
-            <li><strong>Fat:</strong> ~25% năng lượng → ~<strong>45–50 g</strong> (~405–450 kcal)</li>
-            <li><strong>Carb:</strong> phần còn lại → ~<strong>150–180 g</strong> (~600–720 kcal)</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="note mt-4">
-        <strong>Giải thích:</strong> protein cao để bảo vệ cơ khi ăn ít calo; fat đủ để hỗ trợ hormone; carb vừa đủ để duy trì năng lượng tập và tăng sức bền. Các con số đã làm tròn cho dễ áp dụng.
-      </div>
-
-      <h3 class="mt-4 font-semibold">Cơ cấu bữa ăn (gợi ý)</h3>
-      <p class="text-stone-700">Chia 3 bữa chính + 1 bữa phụ / hoặc 1 ly sau tập. Ví dụ: Sáng - Trưa - Xế - Tối. Thực đơn mẫu dưới đây tuân theo macro đã nêu và tránh trứng luộc.</p>
-
-      <h4 class="mt-3 font-semibold">Mẫu thực đơn — 1 ngày (~1,650–1,700 kcal)</h4>
-      <ol class="list-decimal pl-5 space-y-2 text-stone-700">
-        <li>
-          <strong>Bữa sáng</strong> (≈ 400 kcal): 50g yến mạch nấu với 200ml sữa hạt, 1/2 quả chuối, 1 muỗng whey hoặc 150g sữa chua không đường, 10g hạt óc chó băm.
-        </li>
-        <li>
-          <strong>Bữa trưa</strong> (≈ 500 kcal): 120–150g ức gà hoặc cá nướng, 100g cơm gạo lứt, nhiều rau trộn/luộc, 1 muỗng dầu ô liu.
-        </li>
-        <li>
-          <strong>Bữa xế</strong> (≈ 180 kcal): 1 quả táo hoặc 1 quả lê + 15–20g hạt hạnh nhân (hoặc 1 hộp sữa chua không đường).
-        </li>
-        <li>
-          <strong>Bữa tối</strong> (≈ 500–550 kcal): 120–150g cá/thịt nạc, nhiều rau hấp/xào ít dầu, 50–80g khoai lang (tùy mức năng lượng).
-        </li>
-        <li>
-          <strong>Sau tập (nếu cần)</strong>: 1 ly sinh tố (whey + 1/2 chuối + nước/đá) — thay cho bữa xế nếu tập chiều.
-        </li>
-      </ol>
-
-      <p class="mt-3 text-stone-700">Nguyên liệu dễ tìm ở chợ Việt Nam: ức gà, cá, đậu phụ, rau muống, cải ngọt, cà chua, dưa leo, khoai lang, gạo lứt, yến mạch, chuối, hạt. Tránh trứng luộc; nếu muốn trứng, dùng trứng ốp/làm omelette (nếu chấp nhận).</p>
-    </section>
-
-    <section class="mb-6">
-      <h2 class="section-title">Lịch tập 5 buổi/tuần — Dành cho người mới</h2>
-      <p class="text-stone-700 mt-2">Thiết kế theo nguyên tắc: bài tập sức mạnh ưu tiên + cardio nhẹ. Các bài có thể thực hiện ở phòng gym hoặc biến thể tại nhà.</p>
-
-      <h3 class="mt-3 font-semibold">Phân chia tuần (gợi ý)</h3>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li><strong>Thứ 2 — Upper A (Ngực + Vai + Tay sau)</strong></li>
-        <li><strong>Thứ 3 — Lower A (Chân - tập trọng tâm trước)</strong></li>
-        <li><strong>Thứ 4 — Cardio nhẹ + Mobility (Đi bộ nhanh/xe đạp 25–30 phút)</strong></li>
-        <li><strong>Thứ 5 — Upper B (Lưng + Tay trước)</strong></li>
-        <li><strong>Thứ 6 — Lower B (Glutes + Hamstrings)</strong></li>
-        <li><strong>Thứ 7 & CN — Nghỉ hoặc hoạt động nhẹ</strong></li>
-      </ul>
-
-      <h3 class="mt-3 font-semibold">Cấu trúc mỗi buổi</h3>
-      <ol class="pl-5 list-decimal text-stone-700 space-y-2">
-        <li><strong>Warm-up (5–8 phút)</strong>: đi bộ nhanh hoặc nhảy dây nhẹ; khởi động khớp (arm circles — xoay vai; leg swings — vung chân).</li>
-        <li><strong>Compound lifts (25–35 phút)</strong>: 3–4 bài lớn, 3–4 sets, 6–12 reps.</li>
-        <li><strong>Accessory (10–12 phút)</strong>: 2–3 bài nhỏ, 2–3 sets, 12–15 reps.</li>
-        <li><strong>Cool-down & Stretching (5–8 phút)</strong>: giãn cơ vùng vừa tập.</li>
-      </ol>
-
-      <h4 class="mt-3 font-semibold">Chi tiết bài tập (ví dụ cụ thể)</h4>
-      <div class="mt-2 space-y-4 text-stone-700">
-        <div>
-          <strong>Upper A (Ngực/ Vai/ Tay sau)</strong>
-          <ul class="pl-5 list-disc mt-2">
-            <li>Barbell bench press — 3 sets x 8–10 (Đẩy ngực tạ đòn)</li>
-            <li>Dumbbell incline press — 3 x 10 (Đẩy ngực 45° tạ đơn)</li>
-            <li>Overhead press — 3 x 8–10 (Đẩy vai đứng)</li>
-            <li>Tricep pushdown — 3 x 12 (Kéo cơ tam đầu máy cáp)</li>
-            <li>Face pull — 3 x 15 (Kéo mặt cho vai sau)</li>
-          </ul>
+        <!-- Health Alert -->
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded-md" role="alert">
+            <p class="font-bold">🚨 Lưu ý Sức khỏe Đặc biệt</p>
+            <p>Do có tiền sử <strong>khó thở khi ở trong máy lạnh</strong>, Gia An cần ưu tiên tập luyện ở nơi thoáng khí, duy trì nhịp độ nhẹ nhàng, và luôn mang theo thuốc/thiết bị hỗ trợ (nếu có) khi tập. <strong>Kiêng hoàn toàn trứng luộc</strong> trong thực đơn.</p>
         </div>
 
-        <div>
-          <strong>Lower A (Chân - Quadriceps focus)</strong>
-          <ul class="pl-5 list-disc mt-2">
-            <li>Squat hoặc Goblet squat — 3 x 8–10 (Ngồi xổm / Goblet: ôm tạ trước ngực)</li>
-            <li>Lunge — 3 x 10 mỗi bên (Bước chân)</li>
-            <li>Bulgarian split squat — 3 x 10 (Chân sau đặt trên ghế)</li>
-            <li>Calf raise — 3 x 15 (Nâng bắp chân)</li>
-          </ul>
+        <!-- Tab Navigation -->
+        <div class="mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex flex-wrap justify-center gap-2 md:gap-6" aria-label="Tabs">
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="overview">Tổng Quan</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="workouts">Lịch Tập</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="diet">Thực Đơn</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="recovery">Phục Hồi & Mẹo</button>
+                    <button class="tab-btn shrink-0 border-b-2 font-medium px-3 py-2 text-sm md:text-base" data-tab="checklist">Checklist</button>
+                </nav>
+            </div>
         </div>
 
-        <div>
-          <strong>Upper B (Lưng/ Tay trước)</strong>
-          <ul class="pl-5 list-disc mt-2">
-            <li>Pull-up / Assisted pull-up hoặc Lat pulldown — 3 x 6–10 (Kéo xà / kéo cáp)</li>
-            <li>Barbell row — 3 x 8–10 (Kéo tạ đòn nghiêng)</li>
-            <li>Dumbbell single-arm row — 3 x 10 mỗi bên (Kéo tạ 1 tay)</li>
-            <li>Bicep curl — 3 x 12 (Cuốn tay trước tạ)</li>
-          </ul>
-        </div>
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Tổng Quan & Tiến Độ Giảm Mỡ</h2>
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-xl mb-6">
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-red-50 p-3 md:p-4 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-semibold text-stone-500">Cân Nặng Bắt Đầu</h3>
+                            <p class="text-2xl font-bold text-red-600" id="start-weight">67<span class="text-base">kg</span></p>
+                        </div>
+                        <div class="bg-green-50 p-3 md:p-4 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-semibold text-stone-500">Mục Tiêu</h3>
+                            <p class="text-2xl font-bold text-green-600">55-58<span class="text-base">kg</span></p>
+                        </div>
+                        <div class="bg-red-50 p-3 md:p-4 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-semibold text-stone-500">Lịch Tập</h3>
+                            <p class="text-2xl font-bold text-red-600">5<span class="text-base"> ngày/tuần</span></p>
+                        </div>
+                        <div class="bg-green-50 p-3 md:p-4 rounded-lg shadow-sm">
+                            <h3 class="text-sm font-semibold text-stone-500">Thời Gian</h3>
+                            <p class="text-2xl font-bold text-green-600">12<span class="text-base"> tuần</span></p>
+                        </div>
+                    </div>
+                    <!-- Nutrition Summary -->
+                    <div class="mt-6 p-4 bg-gray-100 rounded-lg border border-gray-200">
+                        <h4 class="font-bold text-lg text-red-600 mb-2">Thông số dinh dưỡng đề xuất</h4>
+                        <p class="text-sm text-stone-700"><strong>Calo:</strong> <strong class="text-red-700">1800-2000 kcal</strong>/ngày (Thâm hụt nhẹ). <strong>Macro:</strong> <strong class="text-red-700">Protein 40% - Carb 40% - Fat 20%</strong>. Chế độ ăn <strong>Cân bằng &amp; Ăn sạch</strong>.</p>
+                    </div>
+                </div>
 
-        <div>
-          <strong>Lower B (Glutes / Hamstrings)</strong>
-          <ul class="pl-5 list-disc mt-2">
-            <li>Romanian deadlift (RDL) — 3 x 8–10 (Kéo đùi sau)</li>
-            <li>Hip thrust — 3 x 10 (Nâng hông)</li>
-            <li>Reverse lunge — 3 x 10 mỗi bên (Bước lùi)</li>
-            <li>Hamstring curl hoặc Swiss ball hamstring curl — 3 x 12 (Uốn đùi sau)</li>
-          </ul>
-        </div>
-      </div>
+                <!-- Weight Tracking & Analysis REMOVED -->
+            </section>
 
-      <div class="note mt-4">
-        <strong>Ghi chú cho người mới:</strong> bắt đầu với tạ nhẹ để hoàn thiện kỹ thuật. Mỗi tuần cố gắng tăng tải hoặc thêm 1–2 rep cho mỗi bài khi cảm thấy thoải mái.
-      </div>
-    </section>
+            <!-- Workouts Section -->
+            <section id="workouts" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Lịch Tập Luyện 5 Buổi/Tuần (Upper/Lower/Full-body)</h2>
+                <p class="text-center text-stone-600 mb-6">Lịch tập được chia thành 3 giai đoạn 4 tuần. Tập trung vào kỹ thuật, <strong>Cardio nhẹ nhàng</strong>. <strong>Ưu tiên tập luyện ở nơi thoáng khí</strong>.</p>
+                
+                <!-- Week Selector -->
+                <div class="flex justify-center mb-6">
+                    <div class="inline-flex rounded-lg shadow-sm" role="group">
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="1">Tuần 1-4 (Cơ bản)</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="5">Tuần 5-8 (Tăng cường)</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 rounded-r-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="9">Tuần 9-12 (Ổn định)</button>
+                    </div>
+                </div>
 
-    <section class="mb-6">
-      <h2 class="section-title">Cardio nhẹ & Phục hồi</h2>
-      <p class="text-stone-700">Cardio nhẹ 3 buổi/tuần, 20–30 phút: đi bộ nhanh, xe đạp, hoặc đi cầu thang nhẹ. Vì tiền sử <strong>khó thở khi ở trong máy lạnh</strong>, ưu tiên môi trường thoáng, nhiệt độ phòng ~24–26°C, tránh cardio gắng sức trong phòng lạnh.</p>
+                <!-- Google Calendar Quick Guide -->
+                <div id="workout-calendar-buttons"></div>
 
-      <h3 class="mt-3 font-semibold">Giấc ngủ & Quản lý stress</h3>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li>Ngủ đủ 7–8 tiếng/đêm.</li>
-        <li>Tránh dùng điện thoại 30 phút trước khi ngủ.</li>
-        <li>Thực hành 5–10 phút thở sâu hoặc thiền trước khi ngủ nếu căng thẳng.</li>
-      </ul>
+                <!-- Workout Plan Content (Dynamically loaded) -->
+                <div id="workout-plan"></div>
 
-      <h3 class="mt-3 font-semibold">Gợi ý Supplement (không bắt buộc)</h3>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li>Whey protein (sau tập nếu khó nạp protein từ thức ăn).</li>
-        <li>Multivitamin + Omega-3 (nếu khẩu phần rau/omega thấp).</li>
-        <li>Không khuyến nghị thuốc giảm cân hay steroid.</li>
-      </ul>
-    </section>
+                <!-- Core Exercise Video Guide -->
+                <div class="bg-red-50 p-6 rounded-lg shadow-inner mt-8 border border-red-200">
+                    <h3 class="text-xl font-bold mb-4 text-red-700 flex items-center">
+                        <span class="mr-2 text-2xl">📹</span> Hướng Dẫn Video Kỹ Thuật (Cho Người Mới)
+                    </h3>
+                    <p class="text-sm text-stone-600 mb-4">Nhấp vào tên bài tập để xem video hướng dẫn kỹ thuật trên YouTube. Luôn tập đúng form trước khi tăng số lần/tạ.</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        <a href="https://www.youtube.com/results?search_query=Incline+Push-ups+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Incline Push-ups</a>
+                        <a href="https://www.youtube.com/results?search_query=Dumbbell+Row+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Dumbbell Row</a>
+                        <a href="https://www.youtube.com/results?search_query=Wall+Sit+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Wall Sit</a>
+                        <a href="https://www.youtube.com/results?search_query=Glute+Bridge+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Glute Bridge</a>
+                        <a href="https://www.youtube.com/results?search_query=Plank+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Plank</a>
+                        <a href="https://www.youtube.com/results?search_query=Bodyweight+Squat+form" target="_blank" class="text-sm text-center bg-red-200 p-2 rounded hover:bg-red-300 transition-colors">Bodyweight Squat</a>
+                    </div>
+                </div>
+            </section>
 
-    <section class="mb-6">
-      <h2 class="section-title">Theo dõi tiến trình & checklist tuần</h2>
-      <p class="text-stone-700">Cách theo dõi đơn giản – làm vào 1 thời điểm cố định mỗi tuần (ví dụ sáng Chủ nhật):</p>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li>Cân nặng (sáng, sau đi vệ sinh, trước ăn) — ghi lại.</li>
-        <li>Số đo vòng eo, mông, đùi — 2 tuần/lần.</li>
-        <li>Ảnh trước/ngang/sau — 2 tuần/lần.</li>
-        <li>Ghi cảm nhận: năng lượng, giấc ngủ, sức bền tập.</li>
-      </ul>
+            <!-- Diet Section -->
+            <section id="diet" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Thực Đơn Mẫu & Nguyên Tắc Ăn Uống</h2>
+                <p class="text-center text-stone-600 mb-6">Chế độ <strong>Balanced Clean Eating</strong> (Protein 40% - Carb 40% - Fat 20%). Các món ăn **ưu tiên tự chuẩn bị, đơn giản, rẻ và dễ kiếm**.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-xl lg:col-span-2 border-t-4 border-red-500">
+                        <h3 class="text-xl font-semibold mb-4 text-red-700 text-center">Thực Đơn Mẫu Theo Ngày (4 Bữa/Ngày) 🗓️</h3>
+                        <p class="text-sm text-center text-red-600 mb-4 font-medium">⚠️ Lưu ý: **Kiêng tuyệt đối trứng luộc**. Có thể dùng lòng trắng trứng chiên/ốp la.</p>
+                        <div id="meal-calendar-buttons"></div>
+                        <div class="space-y-6" id="meal-options"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-semibold mb-4 text-green-700 text-center">Thực Phẩm Cần Tránh & Lựa Chọn Tốt</h3>
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <h4 class="font-bold text-lg text-green-600 mb-2">✅ Ưu Tiên Ăn (Nguyên liệu rẻ, dễ tìm)</h4>
+                                <ul class="text-stone-700 space-y-1 list-disc list-inside text-sm">
+                                    <li><strong>Protein:</strong> Ức gà, thịt nạc lợn, cá phi lê, đậu phụ, lòng trắng trứng.</li>
+                                    <li><strong>Carb Tốt:</strong> Khoai lang, gạo lứt, yến mạch, các loại củ quả luộc/hấp.</li>
+                                    <li><strong>Rau Xanh:</strong> Rau muống, cải bó xôi, bí đao, bắp cải (luộc/hấp).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-red-600 mb-2">❌ Cần Tránh Tuyệt Đối</h4>
+                                <ul class="text-stone-700 space-y-1 list-disc list-inside text-sm">
+                                    <li><strong>Trứng Luộc:</strong> Kiêng kỵ cá nhân.</li>
+                                    <li>Đồ chiên rán, thức ăn nhanh, nước ngọt có ga, bánh kẹo.</li>
+                                    <li>Các loại sốt béo, kem, phô mai.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-semibold mb-4 text-green-700 text-center">Mẹo Ăn Uống (Tự Chuẩn Bị & Nhanh Gọn)</h3>
+                        <ul class="text-stone-700 space-y-2 list-disc list-inside text-sm">
+                            <li><strong>Bữa Sáng Nhanh:</strong> Yến mạch ngâm qua đêm (Overnight Oats) với sữa tách béo hoặc Sữa chua không đường.</li>
+                            <li><strong>Protein Chuẩn Bị Trước:</strong> Luộc/Áp chảo 1kg ức gà/phi lê cá cho cả 2-3 ngày, bảo quản tủ lạnh.</li>
+                            <li><strong>Tối giản hóa:</strong> Ăn luộc/hấp là ưu tiên số 1 (Rau luộc, gà luộc, khoai luộc) để giảm dầu mỡ và thời gian nấu.</li>
+                            <li><strong>Đồ Uống:</strong> Nước lọc, trà xanh không đường, cà phê đen không đường.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-      <h3 class="mt-3 font-semibold">Checklist hàng tuần (5 mục cơ bản)</h3>
-      <ol class="pl-5 list-decimal text-stone-700">
-        <li>Tuân thủ calories target ít nhất 5/7 ngày.</li>
-        <li>Hoàn thành 5 buổi tập theo lịch.</li>
-        <li>3 buổi cardio nhẹ, mỗi buổi ≥20 phút.</li>
-        <li>Ngủ ≥7 giờ/đêm trung bình.</li>
-        <li>Ghi nhật ký 1 lần/tuần (cân + cảm nhận).</li>
-      </ol>
-    </section>
+            <!-- Recovery Section -->
+            <section id="recovery" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Phục Hồi & Kiểm Soát Căng Thẳng (Recovery & Tips)</h2>
+                <p class="text-center text-stone-600 mb-6">Phục hồi là chìa khóa để cơ thể thích nghi và giảm mỡ hiệu quả.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-xl flex items-start gap-4 border-l-4 border-red-400">
+                        <span class="text-3xl">😴</span>
+                        <div>
+                            <h3 class="font-bold text-lg text-red-600">Ngủ Đủ Giấc (7-9 tiếng)</h3>
+                            <p class="text-stone-600 text-sm">Giấc ngủ sâu giúp cơ thể phục hồi cơ bắp, ổn định hormone đói/no (<strong>Leptin/Ghrelin</strong>), từ đó giảm cảm giác thèm ăn vặt. Ngủ trước 11 giờ đêm.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl flex items-start gap-4 border-l-4 border-red-400">
+                        <span class="text-3xl">🧘‍♀️</span>
+                        <div>
+                            <h3 class="font-bold text-lg text-red-600">Quản lý Stress & Thư Giãn</h3>
+                            <p class="text-stone-600 text-sm">Stress làm tăng hormone <strong>Cortisol</strong>, thúc đẩy tích mỡ bụng. Dành 10-15 phút mỗi ngày để thiền, tập thở sâu hoặc đi bộ nhẹ nhàng ngoài trời.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl flex items-start gap-4 border-l-4 border-red-400">
+                        <span class="text-3xl">💧</span>
+                        <div>
+                            <h3 class="font-bold text-lg text-red-600">Uống Đủ Nước (2-3 lít/ngày)</h3>
+                            <p class="text-stone-600 text-sm">Nước hỗ trợ quá trình trao đổi chất, tiêu hóa. Nên uống một ly nước lớn trước mỗi bữa ăn 30 phút.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl flex items-start gap-4 border-l-4 border-red-400">
+                        <span class="text-3xl">💊</span>
+                        <div>
+                            <h3 class="font-bold text-lg text-red-600">Bổ Sung (Nếu cần)</h3>
+                            <p class="text-stone-600 text-sm">Chỉ dùng khi cần. <strong>Whey Protein</strong> (tăng Protein) hoặc <strong>Omega-3</strong> (tốt cho tim mạch/khớp). Luôn tham khảo ý kiến chuyên gia trước khi dùng.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="mb-6">
-      <h2 class="section-title">Điều chỉnh khi cần</h2>
-      <p class="text-stone-700">Nếu sau 2 tuần không giảm cân (hoặc tỷ lệ mỡ không giảm đáng kể):</p>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li>Giảm thêm 100–150 kcal/ngày hoặc tăng 10–15 phút cardio nhẹ 2 buổi/tuần.</li>
-        <li>Nếu giảm >1 kg/tuần kèm mất năng lượng hoặc mệt mỏi → tăng 150 kcal/ngày.</li>
-        <li>Nếu cảm thấy khó thở hơn trong quá trình tập: dừng, nghỉ, kiểm tra môi trường (nhiệt, không khí) và cân nhắc tập nhẹ hơn hoặc tham khảo bác sĩ.</li>
-      </ul>
-    </section>
+             <!-- Checklist Section -->
+            <section id="checklist" class="content-section">
+                <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Thói Quen Vàng Hàng Ngày & Theo Dõi Tiến Trình</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-xl border-t-4 border-red-500">
+                        <h3 class="text-xl font-semibold mb-4 text-red-700">Thói Quen Hàng Ngày</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold text-lg text-green-600 mb-2">☀️ Checklist Sáng</h4>
+                                <ul class="text-stone-700 space-y-1 list-disc list-inside text-sm">
+                                    <li>Uống 500ml nước ngay khi thức dậy.</li>
+                                    <li>Đi bộ/vươn vai 10 phút.</li>
+                                    <li>Ăn bữa sáng trong vòng 1 giờ.</li>
+                                    <li>Chuẩn bị sẵn đồ ăn trưa (nếu cần).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-red-600 mb-2">🌙 Checklist Tối</h4>
+                                <ul class="text-stone-700 space-y-1 list-disc list-inside text-sm">
+                                    <li>Hoàn thành bữa tối trước 19:00.</li>
+                                    <li>Uống đủ nước (không uống quá nhiều trước khi ngủ).</li>
+                                    <li>Giãn cơ (Cool-down) 10 phút.</li>
+                                    <li>Tắt thiết bị điện tử 30 phút trước khi ngủ.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-xl border-t-4 border-red-500">
+                        <h3 class="text-xl font-semibold mb-4 text-red-700">Hướng Dẫn Theo Dõi Tiến Trình</h3>
+                        <div class="space-y-4">
+                            <details class="border-b border-gray-200">
+                                <summary class="flex justify-between items-center py-2"><span class="font-medium">Cân Nặng</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></summary>
+                                <p class="py-2 text-stone-700 text-sm">Cân vào buổi sáng sau khi đi vệ sinh, trước khi ăn uống. <strong>Chỉ cân 1 lần/tuần</strong>. Không bị ám ảnh bởi con số hàng ngày!</p>
+                            </details>
+                            <details class="border-b border-gray-200">
+                                <summary class="flex justify-between items-center py-2"><span class="font-medium">Số Đo &amp; Ảnh Tiến Trình</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></summary>
+                                <p class="py-2 text-stone-700 text-sm">Đo Vòng eo/bụng và chụp ảnh 3 góc (<strong>trước/bên/sau</strong>) vào ngày đầu tiên mỗi <strong>4 tuần</strong>.</p>
+                            </details>
+                            <details class="border-b border-gray-200">
+                                <summary class="flex justify-between items-center py-2"><span class="font-medium">Động Lực Duy Trì</span><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></summary>
+                                <p class="py-2 text-stone-700 text-sm">Hãy tìm một <strong>Partner (bạn tập)</strong> hoặc một nhóm để chia sẻ hành trình. Khi nản lòng, hãy nhớ lại lý do bạn bắt đầu. <strong>Tính nhất quán (Consistency)</strong> quan trọng hơn cường độ (Intensity).</p>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
-    <section class="mb-6">
-      <h2 class="section-title">Thói quen sáng / tối (Checklist hàng ngày)</h2>
-      <p class="text-stone-700">Chuỗi thói quen đơn giản để duy trì:</p>
-      <ul class="pl-5 list-disc text-stone-700">
-        <li><strong>Sáng:</strong> Uống 300–400 ml nước ngay khi thức dậy → 10 phút di chuyển nhẹ (walk/stretch) → ăn sáng theo plan.</li>
-        <li><strong>Trưa:</strong> Ăn đủ protein + rau, kiểm soát tinh bột.</li>
-        <li><strong>Tối:</strong> Bữa chính nhẹ, ăn xong ít nhất 2 giờ trước khi ngủ.</li>
-        <li><strong>Hàng ngày:</strong> Ghi 1 mục thành công mỗi ngày (ví dụ: \"Hoàn thành buổi tập\"), khen ngợi bản thân.</li>
-      </ul>
-    </section>
+    <script>
+        // Workout Data - Defined in Vietnamese
+        const workoutData = {
+            week1: {
+                title: 'Tuần 1-4: Giai đoạn Làm Quen & Kỹ Thuật (Tập tại nhà)',
+                note: 'Tập trung vào kiểm soát hơi thở và kỹ thuật. Ưu tiên Cardio nhẹ nhàng. <strong>Mục tiêu: 3 hiệp x 12-15 lần/bài</strong> (Trừ Plank/Wall Sit)',
+                days: [
+                    {
+                        name: 'Ngày Tập: Thân Trên (Upper Body)',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút: Đi bộ tại chỗ, xoay các khớp cổ/vai/khuỷu tay.' },
+                            { title: 'Incline Push-ups (Chống đẩy dựa tường/ghế)', instructions: '4 hiệp x 10-15 lần. Chống tay vào tường (dễ) hoặc ghế (khó hơn). Lưng thẳng. <a href="https://www.youtube.com/results?search_query=Incline+Push-ups+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                            { title: 'Dumbbell Row (Kéo tạ đơn - dùng chai nước/balo)', instructions: '3 hiệp x 12 lần/tay. Kéo tạ lên, siết cơ lưng. <a href="https://www.youtube.com/results?search_query=Dumbbell+Row+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                            { title: 'Shoulder Press (Đẩy vai - dùng chai nước/balo)', instructions: '3 hiệp x 15 lần. Ngồi thẳng lưng, đẩy tạ từ vai lên cao.' },
+                            { title: 'Plank (Tấm ván)', instructions: '3 hiệp x 30-45 giây. Giữ lưng thẳng tuyệt đối, siết cơ bụng. <a href="https://www.youtube.com/results?search_query=Plank+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                            { title: 'Cardio Nhẹ', instructions: '15 phút: Đi bộ quanh nhà/trong sân với tốc độ vừa phải.' },
+                            { title: 'Giãn cơ', instructions: '10 phút: Giãn cơ tay, vai, ngực, bụng.' }
+                        ]
+                    },
+                    {
+                        name: 'Ngày Tập: Thân Dưới (Lower Body)',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút: Thêm xoay hông và khớp gối nhẹ nhàng.' },
+                            { title: 'Wall Sit (Ngồi dựa tường)', instructions: '4 hiệp x 45 giây. Lưng thẳng, đùi song song với sàn. <a href="https://www.youtube.com/results?search_query=Wall+Sit+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                            { title: 'Glute Bridge (Cầu hông)', instructions: '4 hiệp x 20 lần. Dùng lực mông đẩy hông lên. <a href="https://www.youtube.com/results?search_query=Glute+Bridge+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                            { title: 'Standing Calf Raise (Nhón gót)', instructions: '3 hiệp x 25 lần. Đứng thẳng, nhón gót lên cao.' },
+                            { title: 'Reverse Lunges (Đứng tấn ngược)', instructions: '3 hiệp x 12 lần/chân. Bước chân về sau, hạ gối.' },
+                            { title: 'Cardio Nhẹ', instructions: '15 phút: Step-ups (Bước lên bậc thang) hoặc Nhảy dây nhẹ.' },
+                            { title: 'Giãn cơ', instructions: '10 phút: Giãn cơ đùi trước, đùi sau, bắp chân, hông.' }
+                        ]
+                    },
+                    {
+                        name: 'Ngày Tập: Full Body & Core (Toàn thân & Cơ bụng)',
+                        exercises: [
+                             { title: 'Khởi động', instructions: '10 phút.' },
+                             { title: 'Bodyweight Squat (Squat không tạ)', instructions: '3 hiệp x 15 lần. Lưng thẳng, hạ hông xuống. <a href="https://www.youtube.com/results?search_query=Bodyweight+Squat+form" target="_blank" class="text-blue-500 hover:underline">[Xem video]</a>' },
+                             { title: 'Push-up (Dựa tường hoặc Quỳ gối)', instructions: '3 hiệp x 10 lần. Tập trung vào kỹ thuật.' },
+                             { title: 'Bird Dog (Chim chó)', instructions: '3 hiệp x 15 lần/bên. Quỳ 4 chân, duỗi tay và chân đối diện. Giữ thăng bằng.' },
+                             { title: 'Marching Plank (Tấm ván bước)', instructions: '3 hiệp x 45 giây. Giữ tư thế Plank, luân phiên nhấc một chân lên khỏi sàn.' },
+                             { title: 'Cardio Nhẹ', instructions: '20 phút: Đạp xe chậm/đi bộ ngoài trời.' },
+                             { title: 'Giãn cơ', instructions: '10 phút: Giãn cơ toàn thân.' }
+                        ]
+                    }
+                ]
+            },
+            week5: {
+                title: 'Tuần 5-8: Giai đoạn Tăng Cường Sức Mạnh (Home/Gym kết hợp)',
+                note: 'Tăng cường độ tập, bắt đầu làm quen với dụng cụ gym nhẹ nhàng. <strong>Mục tiêu: 4 hiệp x 10-12 lần/bài</strong>.',
+                days: [
+                     {
+                        name: 'Ngày Tập: Thân Trên (Upper Body) - Tăng độ khó',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút.' },
+                            { title: 'Dumbbell Bench Press (Đẩy ngực tạ đơn) hoặc Push-up thường', instructions: '4 hiệp x 10-12 lần. Nằm trên ghế/sàn, đẩy tạ lên, kiểm soát tốc độ.' },
+                            { title: 'Cable Row (Chèo máy - gym) hoặc Dumbbell Row (tạ đơn)', instructions: '4 hiệp x 12 lần. Kéo tay về phía bụng, siết chặt cơ lưng.' },
+                            { title: 'Dumbbell Overhead Extension (Duỗi tay sau tạ đơn)', instructions: '3 hiệp x 12 lần. Hai tay giữ tạ đơn, gập khuỷu tay qua đầu.' },
+                            { title: 'Side Plank (Plank nghiêng)', instructions: '3 hiệp x 30-45 giây/bên. ' },
+                            { title: 'Cardio Nhẹ', instructions: '20 phút: Đạp xe tại chỗ (Mức kháng cự 3-5).' },
+                            { title: 'Giãn cơ', instructions: '10 phút: Giãn cơ tay, vai, ngực, bụng.' }
+                        ]
+                    },
+                    {
+                        name: 'Ngày Tập: Thân Dưới (Lower Body) - Tăng độ khó',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút.' },
+                            { title: 'Goblet Squat (Squat với tạ đơn)', instructions: '4 hiệp x 12 lần. Ôm tạ đơn trước ngực, hạ hông sâu hơn.' },
+                            { title: 'Romanian Deadlift (Kéo giãn đùi sau tạ đơn)', instructions: '4 hiệp x 10 lần. Đẩy hông ra sau, lưng thẳng. Cảm nhận căng cơ đùi sau.' },
+                            { title: 'Dumbbell Step-ups (Bước lên bục cầm tạ)', instructions: '3 hiệp x 10 lần/chân. Dùng lực đùi đẩy người lên.' },
+                            { title: 'Standing Calf Raise (Nhón gót - cầm tạ nhẹ)', instructions: '3 hiệp x 25 lần.' },
+                            { title: 'Cardio Nhẹ', instructions: '20 phút: Đi bộ trên máy dốc nhẹ (Incline 3-5, Speed 4.0-5.0).' },
+                            { title: 'Giãn cơ', instructions: '10 phút: Giãn cơ đùi trước, đùi sau, bắp chân, hông.' }
+                        ]
+                    },
+                    {
+                        name: 'Ngày Tập: Active Rest (Nghỉ ngơi tích cực)',
+                        exercises: [
+                             { title: 'Đi bộ', instructions: '60 phút đi bộ chậm (có thể nghe podcast hoặc nhạc). Duy trì nhịp tim ổn định.' },
+                             { title: 'Yoga/Kéo giãn', instructions: '30 phút tập Yoga nhẹ hoặc kéo giãn toàn thân.' },
+                        ]
+                    }
+                ]
+            },
+            week9: {
+                title: 'Tuần 9-12: Giai đoạn Ổn Định & Bền Vững (Gym/Home)',
+                note: 'Tăng số hiệp và cường độ. Giữ vững tính nhất quán trong tập luyện và dinh dưỡng. <strong>Mục tiêu: 5 hiệp x 8-10 lần/bài</strong> (Tăng trọng lượng).',
+                days: [
+                    {
+                        name: 'Ngày Tập: Thân Trên (Upper Body) - Ổn định',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút.' },
+                            { title: 'Dumbbell Bench Press (Đẩy ngực tạ đơn)', instructions: '5 hiệp x 8-10 lần (tăng trọng lượng nếu có thể).' },
+                            { title: 'Lat Pulldown (Kéo xô máy) hoặc Pull-ups (Dựa dây kháng lực)', instructions: '4 hiệp x 10 lần. Kéo thanh tạ xuống ngực trên, siết cơ xô.' },
+                            { title: 'Lateral Raise (Nâng vai sang ngang - tạ nhẹ)', instructions: '4 hiệp x 15 lần. Nâng tạ sang ngang đến ngang vai.' },
+                            { title: 'Bicep Curl (Cuốn tay trước)', instructions: '3 hiệp x 12 lần.' },
+                            { title: 'Russian Twist (Xoay người kiểu Nga)', instructions: '3 hiệp x 20 lần/bên (có thể cầm tạ nhẹ).' },
+                            { title: 'Cardio Nhẹ', instructions: '15 phút: Đạp xe nhanh hơn (Mức kháng cự 5-7).' },
+                            { title: 'Giãn cơ', instructions: '10 phút.' }
+                        ]
+                    },
+                    {
+                        name: 'Ngày Tập: Thân Dưới (Lower Body) - Ổn định',
+                        exercises: [
+                            { title: 'Khởi động', instructions: '10 phút.' },
+                            { title: 'Goblet Squat (Squat với tạ đơn)', instructions: '5 hiệp x 10 lần (tăng trọng lượng).' },
+                            { title: 'Leg Press (Đẩy chân máy) hoặc Glute Bridge (Giữ tạ trên hông)', instructions: '4 hiệp x 12 lần.' },
+                            { title: 'Leg Extension (Đá đùi trước máy) hoặc Wall Sit', instructions: '3 hiệp x 15 lần (hoặc 60 giây giữ Wall Sit).' },
+                            { title: 'Lunges (Đứng tấn thường) - Cầm tạ nhẹ', instructions: '3 hiệp x 10 lần/chân.' },
+                            { title: 'Cardio Nhẹ', instructions: '15 phút: Đi bộ trên máy dốc cao (Incline 8-10, Speed 3.0-4.0).' },
+                            { title: 'Giãn cơ', instructions: '10 phút.' }
+                        ]
+                    } ,
+                     {
+                        name: 'Ngày Tập: Active Rest (Nghỉ ngơi tích cực)',
+                        exercises: [
+                             { title: 'Đi bộ', instructions: '60 phút đi bộ chậm/trung bình (Walk and Talk). Duy trì nhịp tim ổn định.' },
+                             { title: 'Yoga/Kéo giãn', instructions: '30 phút tập Yoga nhẹ hoặc kéo giãn toàn thân.' },
+                        ]
+                    }
+                ]
+            }
+        };
 
-    <footer class="mt-6 text-sm text-stone-600">
-      Phiên bản này là bản hoàn chỉnh để Gia An mở và làm theo. Nếu bạn muốn, mình có thể:
-      <ul class="pl-5 list-disc">
-        <li>Tạo file PDF in sẵn.</li>
-        <li>Thêm biểu đồ tiến độ (tự động hoặc mẫu để điền tay).</li>
-        <li>Điều chỉnh calo/macro nếu có số liệu sinh lý chính xác hơn (VD: % mỡ, tuổi chính xác, mức hoạt động ngoài tập).</li>
-      </ul>
-    </footer>
-  </main>
+        // Meal Data - Updated to focus on simple, cheap, easy-to-prepare dishes and added alternatives
+        const mealOptionsData = [
+            {
+                day: 'Thực Đơn Mẫu Ngày 1 (Khoảng 1900 Kcal - Ưu tiên Luộc/Hấp)',
+                meals: [
+                    { 
+                        name: 'Bữa sáng (7:00)', 
+                        desc: '<strong>200g Yến mạch ngâm qua đêm (Overnight Oats)</strong> với 1/2 chén sữa tách béo + 1 thìa nhỏ hạt chia.', 
+                        alternatives: 'Thay thế: <strong>Bánh mì nguyên cám</strong> + 2 lòng trắng trứng ốp la (không lòng đỏ).',
+                        cal: '~450' 
+                    },
+                    { 
+                        name: 'Bữa trưa (11:30)', 
+                        desc: '<strong>150g Ức gà luộc/hấp/áp chảo (không dầu)</strong> + <strong>1 củ Khoai lang cỡ vừa</strong> + <strong>1 tô Rau muống luộc (hoặc Bắp cải luộc)</strong>.', 
+                        alternatives: 'Thay thế Protein: Cá phi lê/Tôm hấp. Thay thế Carb: 1/2 chén Gạo lứt.',
+                        cal: '~550' 
+                    },
+                    { 
+                        name: 'Bữa phụ (15:00)', 
+                        desc: '<strong>1 hộp Sữa chua không đường</strong> + <strong>1 quả táo/bưởi</strong>.', 
+                        alternatives: 'Thay thế: 1 ly Whey Protein (nếu có) hoặc 1 nắm Hạnh nhân.',
+                        cal: '~180' 
+                    },
+                    { 
+                        name: 'Bữa tối (18:30)', 
+                        desc: '<strong>150g Cá phi lê áp chảo (dùng rất ít dầu ô liu)</strong> + <strong>1/2 chén Gạo lứt đã nấu chín</strong> + <strong>1 bát Canh Bí đao nấu tôm</strong>.', 
+                        alternatives: 'Thay thế Carb: Bỏ Gạo lứt, tăng cường Rau xanh và Protein.',
+                        cal: '~720' 
+                    }
+                ]
+            }
+            // You can add more days here if needed
+        ];
+        
+        // --- START: Tab and Content Management ---
+        const tabs = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('.content-section');
+
+        function switchTab(targetTab) {
+            tabs.forEach(tab => {
+                if (tab.dataset.tab === targetTab) {
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('tab-inactive');
+                } else {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('tab-inactive');
+                }
+            });
+
+            sections.forEach(section => {
+                if (section.id === targetTab) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchTab(tab.dataset.tab);
+            });
+        });
+
+        // Default tab on load
+        switchTab('overview');
+        // --- END: Tab and Content Management ---
+
+        // --- START: Workout Plan Rendering ---
+        function renderWorkouts(weekKey) {
+            const plan = workoutData[weekKey];
+            const workoutPlanDiv = document.getElementById('workout-plan');
+            let html = `<div class="bg-white p-6 rounded-lg shadow-xl mb-6 border-t-4 border-red-500">
+                            <h3 class="text-xl font-bold mb-3 text-red-600">${plan.title}</h3>
+                            <p class="text-sm text-stone-600 mb-6">${plan.note}</p>
+                            <div class="space-y-4">`;
+            
+            plan.days.forEach((day, index) => {
+                html += `<details class="border-b border-gray-200" ${index === 0 ? 'open' : ''}>
+                            <summary class="flex justify-between items-center py-3 font-semibold text-lg text-red-700">
+                                ${day.name}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                            </summary>
+                            <ul class="pt-2 pb-4 space-y-3">`;
+                day.exercises.forEach(ex => {
+                    html += `<li class="text-sm border-l-4 border-red-200 pl-3">
+                                <strong class="text-stone-800">${ex.title}:</strong> 
+                                <span class="text-stone-600">${ex.instructions}</span>
+                            </li>`;
+                });
+                html += `</ul>
+                        </details>`;
+            });
+
+            html += `</div></div>`;
+            workoutPlanDiv.innerHTML = html;
+        }
+
+        // Render default week
+        renderWorkouts('week1');
+
+        document.querySelectorAll('.week-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                renderWorkouts(e.target.dataset.week);
+                document.querySelectorAll('.week-btn').forEach(btn => btn.classList.remove('bg-red-500', 'text-white'));
+                e.target.classList.add('bg-red-500', 'text-white');
+            });
+        });
+
+        // Set default active week button style
+        document.querySelector('.week-btn[data-week="1"]').classList.add('bg-red-500', 'text-white');
+        // --- END: Workout Plan Rendering ---
+
+        // --- START: Meal Plan Rendering ---
+        function renderMealOptions() {
+            const mealOptionsDiv = document.getElementById('meal-options');
+            let html = '';
+
+            mealOptionsData.forEach(dayPlan => {
+                html += `<div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                    <h4 class="font-bold text-red-700 mb-3">${dayPlan.day}</h4>
+                    <div class="space-y-4">`;
+                
+                dayPlan.meals.forEach(meal => {
+                    html += `<div class="border-b pb-3 last:border-b-0">
+                        <p class="font-semibold text-sm text-stone-800">${meal.name} <span class="text-xs text-red-500 font-normal">(${meal.cal} kcal)</span></p>
+                        <p class="text-sm text-stone-600 pl-3 mt-1">${meal.desc}</p>
+                        <p class="text-xs text-stone-500 italic pl-3 mt-1">Gợi ý thay thế: ${meal.alternatives}</p>
+                    </div>`;
+                });
+
+                html += `</div></div>`;
+            });
+
+            mealOptionsDiv.innerHTML = html;
+        }
+        
+        renderMealOptions();
+        // --- END: Meal Plan Rendering ---
+
+        // --- START: Google Calendar Integration ---
+        function createGoogleCalendarLink(title, details, startTime, durationMinutes) {
+            // Định dạng thời gian cho Google Calendar (YYYYMMDDTHHMMSSZ)
+            // Vì Calendar Template không cho phép lặp lại (recurrence) trực tiếp
+            // Nên ta tạo sự kiện bắt đầu từ hôm nay và người dùng sẽ cài đặt Repeat thủ công.
+            const now = new Date();
+            const startHour = parseInt(startTime.split(':')[0]);
+            const startMinute = parseInt(startTime.split(':')[1]);
+            
+            // Đặt thời điểm bắt đầu theo giờ địa phương hôm nay
+            now.setHours(startHour, startMinute, 0, 0);
+
+            // Chuyển sang format YYYYMMDDTHHMMSS
+            const formatComponent = (n) => n < 10 ? '0' + n : '' + n;
+            
+            // Lấy UTC time components (vì Google Calendar thích UTC cho template)
+            const year = now.getUTCFullYear();
+            const month = formatComponent(now.getUTCMonth() + 1);
+            const day = formatComponent(now.getUTCDate());
+            const hour = formatComponent(now.getUTCHours());
+            const minute = formatComponent(now.getUTCMinutes());
+            const second = formatComponent(now.getUTCSeconds());
+            
+            const startDateTime = `${year}${month}${day}T${hour}${minute}${second}Z`;
+            
+            // Tính toán thời điểm kết thúc (durationMinutes)
+            const endTime = new Date(now.getTime() + durationMinutes * 60000); // 60000 ms/phút
+            
+            const endYear = endTime.getUTCFullYear();
+            const endMonth = formatComponent(endTime.getUTCMonth() + 1);
+            const endDay = formatComponent(endTime.getUTCDate());
+            const endHour = formatComponent(endTime.getUTCHours());
+            const endMinute = formatComponent(endTime.getUTCMinutes());
+            const endSecond = formatComponent(endTime.getUTCSeconds());
+
+            const endDateTime = `${endYear}${endMonth}${endDay}T${endHour}${endMinute}${endSecond}Z`;
+
+            const baseUrl = 'https://www.google.com/calendar/render?action=TEMPLATE';
+            const params = {
+                text: encodeURIComponent(title),
+                details: encodeURIComponent(details),
+                dates: `${startDateTime}/${endDateTime}`
+            };
+
+            let url = baseUrl;
+            for (let key in params) {
+                url += `&${key}=${params[key]}`;
+            }
+            
+            // Google Calendar sẽ mở trong tài khoản mặc định, người dùng có thể chuyển đổi.
+            return url;
+        }
+
+        // 1. Tạo các nút thêm lịch tập
+        function addWorkoutCalendarButtons() {
+            const workoutCalendarDiv = document.getElementById('workout-calendar-buttons');
+            if (!workoutCalendarDiv) return;
+
+            // Cập nhật lại logic để người dùng tạo từng sự kiện lặp lại theo ngày
+            const workoutEvents = [
+                { day: 'T2, T5', title: '💪 [Tập] Thân Trên', details: '10p Khởi động + 45p Thân Trên (Upper) + 20p Cardio nhẹ. (Xem chi tiết bài tập trong file này). ⚠️ Tập nơi thoáng khí.', time: '19:00', duration: 75, repeatNote: 'Lặp lại Hàng Tuần vào Thứ 2 và Thứ 5.' },
+                { day: 'T3', title: '💪 [Tập] Thân Dưới', details: '10p Khởi động + 45p Thân Dưới (Lower) + 20p Cardio nhẹ. (Xem chi tiết bài tập trong file này). ⚠️ Tập nơi thoáng khí.', time: '19:00', duration: 75, repeatNote: 'Lặp lại Hàng Tuần vào Thứ 3.' },
+                { day: 'T4', title: '💪 [Tập] Toàn Thân', details: '10p Khởi động + 45p Toàn Thân (Full Body) + 20p Cardio nhẹ. (Xem chi tiết bài tập trong file này). ⚠️ Tập nơi thoáng khí.', time: '19:00', duration: 75, repeatNote: 'Lặp lại Hàng Tuần vào Thứ 4.' },
+                { day: 'T4, CN', title: '🏃‍♀️ Nghỉ Ngơi Tích Cực', details: '60 phút Đi bộ chậm/Yoga thư giãn/Kéo giãn toàn thân. Ưu tiên buổi sáng.', time: '06:00', duration: 60, repeatNote: 'Lặp lại Hàng Tuần vào Thứ 4 và Chủ Nhật.' },
+            ];
+
+
+            let buttonHtml = `<div class="mt-6 mb-8 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
+                <h4 class="font-bold text-red-700 mb-3">🔗 Thiết Lập Lịch Tập Luyện (Theo Ngày)</h4>
+                <p class="text-sm text-red-600 mb-3">Nhấn **MỖI NÚT** để tạo sự kiện. Khi Google Lịch mở ra, **BẮT BUỘC** cài đặt tần suất lặp lại (Repeat) theo ngày tương ứng trong tuần.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    ${workoutEvents.map((event, index) => `
+                        <a href="${createGoogleCalendarLink(event.title, event.details, event.time, event.duration)}" target="_blank" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-1 rounded text-center text-xs transition-colors shadow-md flex flex-col justify-center items-center">
+                           <span>${event.title}</span> 
+                           <span class="text-xs font-normal">(${event.day})</span>
+                           <span class="text-xs font-light mt-1">Lặp: ${event.day}</span>
+                        </a>
+                    `).join('')}
+                </div>
+            </div>`;
+            
+            // Chèn vào ngay trước phần nội dung lịch tập
+            workoutCalendarDiv.innerHTML = buttonHtml;
+        }
+
+        // 2. Tạo các nút thêm lịch ăn
+        function addDietCalendarButtons() {
+            const dietSection = document.getElementById('meal-calendar-buttons');
+            if (!dietSection) return;
+
+            const mealTimes = [
+                { title: '🍽️ Bữa Sáng', time: '07:00', duration: 30, details: 'Ăn sáng giàu Protein và Carb tốt. (Yến mạch/Trứng ốp la). Kiểm soát khẩu phần. Lặp lại Hàng Ngày.' },
+                { title: '🍽️ Bữa Trưa', time: '11:30', duration: 45, details: 'Protein + Carb phức + Rau xanh. Ăn chậm, nhai kỹ. Lặp lại Hàng Ngày.' },
+                { title: '🍎 Bữa Phụ', time: '15:00', duration: 15, details: 'Snack nhẹ: Sữa chua/Trái cây/Hạt. Lặp lại Hàng Ngày.' },
+                { title: '🥣 Bữa Tối', time: '18:30', duration: 45, details: 'Ăn tối trước 19:00. Ưu tiên Protein và Rau luộc/hấp. Lặp lại Hàng Ngày.' }
+            ];
+
+            let buttonHtml = `<div class="mt-6 mb-8 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
+                <h4 class="font-bold text-green-700 mb-3">🔗 Thiết Lập Lịch Ăn Uống (4 Bữa/Ngày)</h4>
+                <p class="text-sm text-green-600 mb-3">Nhấn **MỖI NÚT** để tạo sự kiện. Khi Google Lịch mở ra, **BẮT BUỘC** cài đặt tần suất **Lặp lại Hàng Ngày (Repeat: Daily)**.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    ${mealTimes.map(meal => `
+                        <a href="${createGoogleCalendarLink(meal.title, meal.details, meal.time, meal.duration)}" target="_blank" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-1 rounded text-center text-xs transition-colors shadow-md">
+                            ${meal.time} - ${meal.title.split(' ')[1]}
+                        </a>
+                    `).join('')}
+                </div>
+            </div>`;
+
+            // Chèn vào ngay trước phần nội dung thực đơn
+            dietSection.innerHTML = buttonHtml;
+        }
+
+        // Thêm các nút khi DOM đã load hoàn toàn
+        document.addEventListener('DOMContentLoaded', function() {
+            addWorkoutCalendarButtons();
+            addDietCalendarButtons();
+
+            // Set initial rotation for details/summary
+            document.querySelectorAll('details').forEach(detail => {
+                detail.addEventListener('toggle', () => {
+                    const icon = detail.querySelector('svg');
+                    if (detail.open) {
+                        icon.style.transform = 'rotate(90deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        });
+        /* --- END: Google Calendar Integration --- */
+
+    </script>
 </body>
 </html>
