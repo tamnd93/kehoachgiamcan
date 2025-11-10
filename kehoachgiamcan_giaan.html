@@ -126,9 +126,9 @@
                 <!-- Week Selector -->
                 <div class="flex justify-center mb-6">
                     <div class="inline-flex rounded-lg shadow-sm" role="group">
-                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="1">Tuần 1-4 (Cơ bản)</button>
-                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="5">Tuần 5-8 (Tăng cường)</button>
-                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 rounded-r-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="9">Tuần 9-12 (Ổn định)</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="week1">Tuần 1-4 (Cơ bản)</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="week5">Tuần 5-8 (Tăng cường)</button>
+                        <button type="button" class="week-btn px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-r border-gray-200 rounded-r-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-red-500" data-week="week9">Tuần 9-12 (Ổn định)</button>
                     </div>
                 </div>
 
@@ -158,11 +158,11 @@
             <!-- Diet Section -->
             <section id="diet" class="content-section">
                 <h2 class="text-2xl font-bold mb-4 text-center text-red-600">Thực Đơn Mẫu & Nguyên Tắc Ăn Uống</h2>
-                <p class="text-center text-stone-600 mb-6">Chế độ <strong>Balanced Clean Eating</strong> (Protein 40% - Carb 40% - Fat 20%). Các món ăn **ưu tiên tự chuẩn bị, đơn giản, rẻ và dễ kiếm**.</p>
+                <p class="text-center text-stone-600 mb-6">Chế độ <strong>Balanced Clean Eating</strong> (Protein 40% - Carb 40% - Fat 20%). Các món ăn <strong>ưu tiên tự chuẩn bị, đơn giản, rẻ và dễ kiếm</strong>.</p>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-lg shadow-xl lg:col-span-2 border-t-4 border-red-500">
                         <h3 class="text-xl font-semibold mb-4 text-red-700 text-center">Thực Đơn Mẫu Theo Ngày (4 Bữa/Ngày) 🗓️</h3>
-                        <p class="text-sm text-center text-red-600 mb-4 font-medium">⚠️ Lưu ý: **Kiêng tuyệt đối trứng luộc**. Có thể dùng lòng trắng trứng chiên/ốp la.</p>
+                        <p class="text-sm text-center text-red-600 mb-4 font-medium">⚠️ Lưu ý: <strong>Kiêng tuyệt đối trứng luộc</strong>. Có thể dùng lòng trắng trứng chiên/ốp la.</p>
                         <div id="meal-calendar-buttons"></div>
                         <div class="space-y-6" id="meal-options"></div>
                     </div>
@@ -477,6 +477,13 @@
         // --- START: Workout Plan Rendering ---
         function renderWorkouts(weekKey) {
             const plan = workoutData[weekKey];
+            
+            // FIX: Thêm kiểm tra an toàn để đảm bảo plan không bị undefined
+            if (!plan) {
+                console.error("Workout plan not found for key:", weekKey);
+                return; 
+            }
+            
             const workoutPlanDiv = document.getElementById('workout-plan');
             let html = `<div class="bg-white p-6 rounded-lg shadow-xl mb-6 border-t-4 border-red-500">
                             <h3 class="text-xl font-bold mb-3 text-red-600">${plan.title}</h3>
@@ -508,15 +515,22 @@
         renderWorkouts('week1');
 
         document.querySelectorAll('.week-btn').forEach(button => {
+            // Sửa lỗi: Đảm bảo data-week trong HTML là 'week1', 'week5', 'week9' (đã sửa ở bước trước nhưng kiểm tra lại)
+            if (button.dataset.week === '1') { button.dataset.week = 'week1'; }
+            if (button.dataset.week === '5') { button.dataset.week = 'week5'; }
+            if (button.dataset.week === '9') { button.dataset.week = 'week9'; }
+            
             button.addEventListener('click', (e) => {
-                renderWorkouts(e.target.dataset.week);
+                // Sử dụng e.currentTarget để đảm bảo lấy đúng phần tử button (và data-week)
+                const weekKey = e.currentTarget.dataset.week; 
+                renderWorkouts(weekKey);
                 document.querySelectorAll('.week-btn').forEach(btn => btn.classList.remove('bg-red-500', 'text-white'));
-                e.target.classList.add('bg-red-500', 'text-white');
+                e.currentTarget.classList.add('bg-red-500', 'text-white');
             });
         });
 
         // Set default active week button style
-        document.querySelector('.week-btn[data-week="1"]').classList.add('bg-red-500', 'text-white');
+        document.querySelector('.week-btn[data-week="week1"]').classList.add('bg-red-500', 'text-white');
         // --- END: Workout Plan Rendering ---
 
         // --- START: Meal Plan Rendering ---
@@ -615,7 +629,7 @@
 
             let buttonHtml = `<div class="mt-6 mb-8 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
                 <h4 class="font-bold text-red-700 mb-3">🔗 Thiết Lập Lịch Tập Luyện (Theo Ngày)</h4>
-                <p class="text-sm text-red-600 mb-3">Nhấn **MỖI NÚT** để tạo sự kiện. Khi Google Lịch mở ra, **BẮT BUỘC** cài đặt tần suất lặp lại (Repeat) theo ngày tương ứng trong tuần.</p>
+                <p class="text-sm text-red-600 mb-3">Nhấn <strong>MỖI NÚT</strong> để tạo sự kiện. Khi Google Lịch mở ra, <strong>BẮT BUỘC</strong> cài đặt tần suất lặp lại (Repeat) theo ngày tương ứng trong tuần.</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     ${workoutEvents.map((event, index) => `
                         <a href="${createGoogleCalendarLink(event.title, event.details, event.time, event.duration)}" target="_blank" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-1 rounded text-center text-xs transition-colors shadow-md flex flex-col justify-center items-center">
@@ -645,7 +659,7 @@
 
             let buttonHtml = `<div class="mt-6 mb-8 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg">
                 <h4 class="font-bold text-green-700 mb-3">🔗 Thiết Lập Lịch Ăn Uống (4 Bữa/Ngày)</h4>
-                <p class="text-sm text-green-600 mb-3">Nhấn **MỖI NÚT** để tạo sự kiện. Khi Google Lịch mở ra, **BẮT BUỘC** cài đặt tần suất **Lặp lại Hàng Ngày (Repeat: Daily)**.</p>
+                <p class="text-sm text-green-600 mb-3">Nhấn <strong>MỖI NÚT</strong> để tạo sự kiện. Khi Google Lịch mở ra, <strong>BẮT BUỘC</strong> cài đặt tần suất <strong>Lặp lại Hàng Ngày (Repeat: Daily)</strong>.</p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                     ${mealTimes.map(meal => `
                         <a href="${createGoogleCalendarLink(meal.title, meal.details, meal.time, meal.duration)}" target="_blank" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-1 rounded text-center text-xs transition-colors shadow-md">
@@ -663,6 +677,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             addWorkoutCalendarButtons();
             addDietCalendarButtons();
+
+            // Lỗi này không còn cần thiết nếu HTML đã đúng data-week="weekX"
+            // document.querySelector('.week-btn[data-week="1"]').dataset.week = 'week1';
+            // document.querySelector('.week-btn[data-week="5"]').dataset.week = 'week5';
+            // document.querySelector('.week-btn[data-week="9"]').dataset.week = 'week9';
+
 
             // Set initial rotation for details/summary
             document.querySelectorAll('details').forEach(detail => {
