@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giáo trình tăng cơ giảm mỡ của Tống Gia Hân</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-bg': '#FDFBF7', // Warm neutral background
+                        'brand-primary': '#D97706', // Warm orange
+                        'brand-secondary': '#78350F', // Dark wood/stone
+                        'brand-accent': '#F59E0B',
+                        'brand-surface': '#FFFFFF',
+                        'brand-soft': '#FEF3C7'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #44403C;
+        }
+        /* Chart Container Styling - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Tailwind max-w-2xl equivalent logic */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3D1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A8A29E; 
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-6 md:space-y-8">
+        
+        <!-- HEADER SECTION -->
+        <header class="text-center space-y-4 mb-8">
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-brand-secondary">Giáo trình tăng cơ giảm mỡ của Tống Gia Hân</h1>
+            <p class="text-base md:text-lg text-stone-600 max-w-2xl mx-auto">
+                Kế hoạch tập luyện tại nhà: Đơn giản - Hiệu quả - Bền bỉ.
+                <br>
+                <span class="text-brand-primary font-bold">Mục tiêu:</span> Săn chắc cơ thể, giảm mỡ, tăng cơ.
+            </p>
+        </header>
+
+        <!-- PRINCIPLES GRID -->
+        <section class="bg-white rounded-2xl p-4 md:p-6 shadow-sm border border-stone-100">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="p-3 md:p-4 bg-orange-50 rounded-xl border border-orange-100">
+                    <div class="text-xl md:text-2xl mb-2">🔥</div>
+                    <h3 class="font-bold text-brand-secondary text-sm md:text-base">Khởi Động Kỹ</h3>
+                    <p class="text-xs md:text-sm text-stone-600">5-10 phút làm nóng để tránh chấn thương. Không bao giờ bỏ qua.</p>
+                </div>
+                <div class="p-3 md:p-4 bg-orange-50 rounded-xl border border-orange-100">
+                    <div class="text-xl md:text-2xl mb-2">⏱️</div>
+                    <h3 class="font-bold text-brand-secondary text-sm md:text-base">Thời Gian Nghỉ</h3>
+                    <p class="text-xs md:text-sm text-stone-600">30-60s giữa hiệp. 60-90s giữa bài. Đừng nghỉ quá lâu.</p>
+                </div>
+                <div class="p-3 md:p-4 bg-orange-50 rounded-xl border border-orange-100">
+                    <div class="text-xl md:text-2xl mb-2">🫁</div>
+                    <h3 class="font-bold text-brand-secondary text-sm md:text-base">Hít Thở Đúng</h3>
+                    <p class="text-xs md:text-sm text-stone-600">Dùng lực (co cơ) thì THỞ RA. Thả lỏng thì HÍT VÀO.</p>
+                </div>
+                <div class="p-3 md:p-4 bg-orange-50 rounded-xl border border-orange-100">
+                    <div class="text-xl md:text-2xl mb-2">💧</div>
+                    <h3 class="font-bold text-brand-secondary text-sm md:text-base">Nước & Dinh Dưỡng</h3>
+                    <p class="text-xs md:text-sm text-stone-600">Uống 2-2.5L nước. Ăn nhẹ 45p trước khi tập.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
+            
+            <!-- LEFT COLUMN: SCHEDULE & NAVIGATION (4 cols) -->
+            <div class="lg:col-span-4 space-y-6 order-2 lg:order-1">
+                
+                <!-- Week Selector -->
+                <div class="bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
+                    <div class="bg-brand-secondary p-4">
+                        <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
+                            📅 Lịch Tập Tuần
+                        </h2>
+                        <p class="text-orange-100 text-sm mt-1">Chọn ngày để xem bài tập</p>
+                    </div>
+                    <div class="p-2 space-y-2" id="weekScheduler">
+                        <!-- JS will populate buttons here -->
+                    </div>
+                </div>
+
+                <!-- Nutrition Summary Widget -->
+                <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-4 md:p-6">
+                    <h3 class="font-bold text-brand-secondary mb-4 text-lg">💡 Góc Dinh Dưỡng</h3>
+                    <p class="text-sm text-stone-600 mb-4">
+                        So sánh lượng Calo (trên 100g) để chọn thực phẩm thông minh.
+                        <br>
+                        <span class="text-xs italic">*Ưu tiên thực phẩm calo thấp, dinh dưỡng cao.</span>
+                    </p>
+                    <!-- Chart Container -->
+                    <div class="chart-container">
+                        <canvas id="nutritionChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <button onclick="document.getElementById('nutritionModal').classList.remove('hidden')" class="text-sm text-brand-primary font-bold underline hover:text-brand-secondary">
+                            Xem bảng thực phẩm chi tiết
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: WORKOUT DISPLAY (8 cols) -->
+            <div class="lg:col-span-8 order-1 lg:order-2">
+                
+                <!-- Dynamic Content Area -->
+                <div id="workoutDisplay" class="bg-white rounded-3xl shadow-xl border border-stone-100 min-h-[500px] md:min-h-[600px] flex flex-col relative overflow-hidden">
+                    
+                    <!-- Content Header -->
+                    <div class="bg-brand-soft p-4 md:p-6 border-b border-orange-100">
+                        <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2">
+                            <div>
+                                <span id="displayDayName" class="uppercase tracking-wide text-xs font-bold text-brand-primary">Thứ 2</span>
+                                <h2 id="displayTitle" class="text-2xl md:text-3xl font-bold text-brand-secondary mt-1">Toàn Thân (Full Body)</h2>
+                                <p id="displayDesc" class="text-stone-600 mt-2 text-sm md:text-base">Đốt mỡ & Tăng sức bền.</p>
+                            </div>
+                            <div class="self-start">
+                                <span class="bg-white px-3 py-1 md:px-4 md:py-2 rounded-full text-brand-secondary font-bold text-xs md:text-sm shadow-sm border border-stone-200 whitespace-nowrap" id="displayRounds">
+                                    3 Vòng (Rounds)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable Exercises List -->
+                    <div class="flex-1 p-4 md:p-6 overflow-y-auto" id="exerciseList">
+                        <!-- JS will render exercises here -->
+                        <div class="flex items-center justify-center h-full text-stone-400">
+                            Chọn một ngày để bắt đầu tập luyện
+                        </div>
+                    </div>
+
+                    <!-- Footer / Warmup Reminder -->
+                    <div class="bg-stone-50 p-3 md:p-4 text-center border-t border-stone-200 text-xs md:text-sm text-stone-500">
+                        Luôn nhớ khởi động kỹ trước khi tập và giãn cơ sau khi tập!
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- COOL DOWN SECTION (Static Reference) -->
+        <section class="bg-brand-secondary text-orange-50 rounded-2xl p-4 md:p-8 mt-8">
+            <div class="md:flex justify-between items-center mb-6">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-white">🧘 Giãn Cơ (Cool Down)</h2>
+                    <p class="opacity-80 text-sm md:text-base">Thực hiện cuối buổi tập. Giữ mỗi tư thế 15-30 giây.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div class="bg-white/10 p-3 md:p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="font-bold text-white text-sm md:text-base">Cobra Stretch</h4>
+                    <p class="text-xs md:text-sm mt-1 opacity-90">Nằm sấp, chống tay đẩy ngực lên. Giãn cơ bụng.</p>
+                </div>
+                <div class="bg-white/10 p-3 md:p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="font-bold text-white text-sm md:text-base">Child's Pose</h4>
+                    <p class="text-xs md:text-sm mt-1 opacity-90">Quỳ gối, mông chạm gót, vươn tay. Thư giãn lưng.</p>
+                </div>
+                <div class="bg-white/10 p-3 md:p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="font-bold text-white text-sm md:text-base">Hamstring Stretch</h4>
+                    <p class="text-xs md:text-sm mt-1 opacity-90">Ngồi duỗi chân, vươn tay chạm mũi chân. Giãn đùi sau.</p>
+                </div>
+                <div class="bg-white/10 p-3 md:p-4 rounded-lg backdrop-blur-sm">
+                    <h4 class="font-bold text-white text-sm md:text-base">Vươn Vai</h4>
+                    <p class="text-xs md:text-sm mt-1 opacity-90">Đan tay vươn thẳng lên trời, nghiêng trái/phải.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- NUTRITION MODAL -->
+    <div id="nutritionModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div class="p-4 md:p-6 border-b border-stone-100 flex justify-between items-center bg-brand-soft">
+                <h2 class="text-lg md:text-2xl font-bold text-brand-secondary">Bảng Thực Phẩm Hỗ Trợ</h2>
+                <button onclick="document.getElementById('nutritionModal').classList.add('hidden')" class="text-brand-secondary hover:text-brand-primary text-2xl font-bold">&times;</button>
+            </div>
+            <div class="p-4 md:p-6 overflow-y-auto">
+                <p class="mb-4 text-sm md:text-base text-stone-600">Dinh dưỡng chiếm 70% kết quả. Ưu tiên chế biến Luộc, Hấp, Áp chảo.</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-stone-700">
+                        <thead class="bg-stone-100 uppercase font-bold text-stone-600">
+                            <tr>
+                                <th class="p-3 md:p-4 rounded-tl-lg whitespace-nowrap">Nhóm</th>
+                                <th class="p-3 md:p-4 whitespace-nowrap">Thực phẩm</th>
+                                <th class="p-3 md:p-4 whitespace-nowrap">Calo / 100g</th>
+                                <th class="p-3 md:p-4 rounded-tr-lg min-w-[150px]">Lợi ích</th>
+                            </tr>
+                        </thead>
+                        <tbody id="nutritionTableBody" class="divide-y divide-stone-100">
+                            <!-- JS Generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STORE ---
+        
+        const scheduleData = [
+            { 
+                id: 'mon', 
+                day: 'Thứ 2', 
+                type: 'active',
+                title: 'Toàn Thân (Full Body)', 
+                desc: 'Đốt mỡ & Tăng sức bền', 
+                rounds: '3 Vòng - Nghỉ 2 phút/vòng',
+                exercises: [
+                    { name: 'Bodyweight Squat', reps: '12 - 15 lần', guide: 'Đứng rộng bằng vai, hạ mông sâu như ngồi ghế. Lưng thẳng, gối mở theo mũi chân. Dồn lực gót chân.', tips: 'Không để đầu gối chụm vào nhau.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+bodyweight+squat' },
+                    { name: 'Push-up', reps: '8 - 12 lần', guide: 'Chống tay rộng hơn vai, thân thẳng. Hạ ngực gần chạm sàn rồi đẩy lên.', tips: 'Siết bụng, không võng lưng. Có thể chống gối nếu mệt.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+push+up' },
+                    { name: 'Lunges', reps: '10 lần/bên', guide: 'Bước dài chân tới trước, hạ trọng tâm sao cho 2 gối vuông góc 90 độ.', tips: 'Lưng thẳng đứng, gối trước không quá mũi chân.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+lunges' },
+                    { name: 'Plank', reps: '30 - 45 giây', guide: 'Chống khuỷu tay, giữ người thẳng tắp như tấm ván.', tips: 'Gồng chặt bụng và mông. Không nhổm mông cao.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+plank' },
+                    { name: 'Jumping Jacks', reps: '20 - 30 lần', guide: 'Bật nhảy tách chân vung tay, rồi khép lại.', tips: 'Tăng nhịp tim, hít thở đều.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+jumping+jacks' }
+                ]
+            },
+            { 
+                id: 'tue', 
+                day: 'Thứ 3', 
+                type: 'rest',
+                title: 'Nghỉ Ngơi hoặc Vận Động Nhẹ', 
+                desc: 'Đi bộ nhẹ nhàng, Yoga hoặc nghỉ hoàn toàn để cơ phục hồi.', 
+                rounds: 'Thư giãn',
+                exercises: []
+            },
+            { 
+                id: 'wed', 
+                day: 'Thứ 4', 
+                type: 'active',
+                title: 'Thân Dưới & Mông (Lower Body)', 
+                desc: 'Săn chắc chân & mông', 
+                rounds: '3 Vòng',
+                exercises: [
+                    { name: 'Sumo Squat', reps: '12 - 15 lần', guide: 'Chân đứng rất rộng, mũi chân mở 45 độ. Hạ mông sâu.', tips: 'Tác động sâu vào đùi trong và mông.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+sumo+squat' },
+                    { name: 'Glute Bridge', reps: '15 lần', guide: 'Nằm ngửa, co gối. Nâng hông lên cao, siết mông 1s rồi hạ.', tips: 'Dùng lực mông, không dùng thắt lưng.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+glute+bridge' },
+                    { name: 'Side Lying Leg Lift', reps: '12 lần/bên', guide: 'Nằm nghiêng, đá chân trên lên cao, giữ 1s rồi hạ chậm.', tips: 'Cố định hông, không đung đưa người.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+side+lying+leg+lift' },
+                    { name: 'Calf Raises', reps: '20 lần', guide: 'Đứng thẳng, nhón gót chân lên cao hết cỡ.', tips: 'Có thể vịn tường giữ thăng bằng.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+calf+raises' },
+                    { name: 'Wall Sit', reps: 'Max time (tối thiểu 30s)', guide: 'Dựa lưng vào tường, trượt xuống tư thế ngồi ghế không khí.', tips: 'Đùi song song sàn, lưng áp sát tường.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+wall+sit' }
+                ]
+            },
+            { 
+                id: 'thu', 
+                day: 'Thứ 5', 
+                type: 'rest',
+                title: 'Nghỉ Ngơi', 
+                desc: 'Ngủ đủ giấc và ăn uống điều độ.', 
+                rounds: 'Phục hồi',
+                exercises: []
+            },
+            { 
+                id: 'fri', 
+                day: 'Thứ 6', 
+                type: 'active',
+                title: 'Thân Trên & Bụng (Upper Body & Core)', 
+                desc: 'Eo thon & Tay khỏe', 
+                rounds: '3 Vòng',
+                exercises: [
+                    { name: 'Knee Push-up / Push-up', reps: '10 - 12 lần', guide: 'Hít đất (có thể quỳ gối). Tập trung vào ngực và tay sau.', tips: 'Khuỷu tay tạo góc 45 độ với thân.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+knee+push+up' },
+                    { name: 'Tricep Dips', reps: '10 - 12 lần', guide: 'Quay lưng lại ghế, chống tay lên mép ghế, hạ mông xuống rồi đẩy lên.', tips: 'Lưng trượt sát cạnh ghế.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+tricep+dips+on+chair' },
+                    { name: 'Superman', reps: '12 lần', guide: 'Nằm sấp, nâng tay và chân rời sàn bằng cơ lưng dưới.', tips: 'Mắt nhìn xuống sàn, không ngửa cổ quá cao.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+superman+exercise' },
+                    { name: 'Bicycle Crunch', reps: '20 lần', guide: 'Nằm ngửa, đạp chân như đạp xe, khuỷu tay này chạm gối kia.', tips: 'Xoay eo, không kéo cổ.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+bicycle+crunch' },
+                    { name: 'Mountain Climbers', reps: '30 giây', guide: 'Tư thế plank cao, chạy nâng gối liên tục về phía ngực.', tips: 'Giữ hông thấp cố định.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+mountain+climbers' }
+                ]
+            },
+            { 
+                id: 'sat', 
+                day: 'Thứ 7', 
+                type: 'light',
+                title: 'Cardio Nhẹ / Giãn Cơ Sâu', 
+                desc: 'Đi bộ nhanh, chạy bộ nhẹ hoặc tập bài giãn cơ toàn thân.', 
+                rounds: '30-45 phút',
+                exercises: []
+            },
+            { 
+                id: 'sun', 
+                day: 'Chủ Nhật', 
+                type: 'rest',
+                title: 'Nghỉ Hoàn Toàn', 
+                desc: 'Chuẩn bị tinh thần cho tuần mới.', 
+                rounds: '-',
+                exercises: []
+            }
+        ];
+
+        const nutritionData = [
+            { group: 'Tinh Bột (Carb)', name: 'Khoai lang', cal: 86, benefit: 'Giàu chất xơ, no lâu' },
+            { group: 'Tinh Bột (Carb)', name: 'Gạo lứt', cal: 110, benefit: 'Vitamin nhóm B' },
+            { group: 'Tinh Bột (Carb)', name: 'Yến mạch', cal: 389, benefit: 'Giảm cholesterol, tốt cho tim' },
+            { group: 'Đạm (Protein)', name: 'Ức gà', cal: 165, benefit: 'Ít béo, tăng cơ tốt nhất' },
+            { group: 'Đạm (Protein)', name: 'Thịt bò', cal: 250, benefit: 'Giàu sắt và Creatine' },
+            { group: 'Đạm (Protein)', name: 'Trứng gà', cal: 155, benefit: 'Đạm hoàn chỉnh giá rẻ' },
+            { group: 'Đạm (Protein)', name: 'Đậu hũ', cal: 76, benefit: 'Đạm thực vật, ít béo' },
+            { group: 'Chất Béo', name: 'Quả bơ', cal: 160, benefit: 'Chất béo tốt cho da' },
+            { group: 'Chất Béo', name: 'Hạnh nhân', cal: 570, benefit: 'Năng lượng cao (ăn ít)' },
+            { group: 'Rau Củ', name: 'Bông cải xanh', cal: 34, benefit: 'Vitamin C, K, chất xơ' },
+            { group: 'Rau Củ', name: 'Dưa leo', cal: 15, benefit: 'Bù nước, calo cực thấp' }
+        ];
+
+        // --- DOM ELEMENTS ---
+        const weekContainer = document.getElementById('weekScheduler');
+        const displayTitle = document.getElementById('displayTitle');
+        const displayDayName = document.getElementById('displayDayName');
+        const displayDesc = document.getElementById('displayDesc');
+        const displayRounds = document.getElementById('displayRounds');
+        const exerciseList = document.getElementById('exerciseList');
+        const nutritionTableBody = document.getElementById('nutritionTableBody');
+
+        // --- INIT ---
+        let currentDayId = 'mon';
+
+        function init() {
+            renderWeekButtons();
+            loadDayContent(currentDayId);
+            renderNutritionChart();
+            renderNutritionTable();
+        }
+
+        // --- RENDER FUNCTIONS ---
+
+        function renderWeekButtons() {
+            weekContainer.innerHTML = '';
+            scheduleData.forEach(day => {
+                const btn = document.createElement('button');
+                const isActive = day.id === currentDayId;
+                
+                // Styling logic based on active state and day type
+                let bgClass = isActive ? 'bg-brand-primary text-white shadow-md' : 'bg-stone-50 text-stone-600 hover:bg-stone-100';
+                let indicatorColor = day.type === 'active' ? 'bg-green-400' : (day.type === 'rest' ? 'bg-gray-300' : 'bg-blue-300');
+                
+                btn.className = `w-full text-left p-3 rounded-lg flex items-center justify-between transition-all ${bgClass}`;
+                btn.innerHTML = `
+                    <span class="font-bold text-sm">${day.day}</span>
+                    <span class="w-2 h-2 rounded-full ${indicatorColor}"></span>
+                `;
+                btn.onclick = () => {
+                    currentDayId = day.id;
+                    renderWeekButtons(); // Re-render to update active styling
+                    loadDayContent(day.id);
+                };
+                weekContainer.appendChild(btn);
+            });
+        }
+
+        function loadDayContent(dayId) {
+            const data = scheduleData.find(d => d.id === dayId);
+            
+            // Animate transition
+            const contentArea = document.getElementById('workoutDisplay');
+            contentArea.classList.add('opacity-50');
+            setTimeout(() => contentArea.classList.remove('opacity-50'), 200);
+
+            displayDayName.textContent = data.day;
+            displayTitle.textContent = data.title;
+            displayDesc.textContent = data.desc;
+            displayRounds.textContent = data.rounds;
+
+            exerciseList.innerHTML = '';
+
+            if (data.type === 'rest') {
+                exerciseList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-center space-y-4 p-8">
+                        <div class="text-6xl">🌿</div>
+                        <h3 class="text-xl font-bold text-stone-600">Hôm nay là ngày nghỉ</h3>
+                        <p class="text-stone-500 max-w-md">Cơ bắp cần thời gian để phục hồi và phát triển. Hãy thư giãn, ngủ đủ giấc hoặc đi dạo nhẹ nhàng.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (data.exercises.length === 0 && data.type !== 'rest') {
+                 exerciseList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-center space-y-4 p-8">
+                        <div class="text-6xl">👟</div>
+                        <h3 class="text-xl font-bold text-stone-600">Hoạt động tự do</h3>
+                        <p class="text-stone-500 max-w-md">${data.desc}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render Exercises
+            // Add Warmup Reminder Card at top
+            const warmupCard = document.createElement('div');
+            warmupCard.className = "mb-6 p-4 bg-orange-50 border border-orange-200 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-orange-100 transition-colors";
+            warmupCard.innerHTML = `
+                <div class="bg-brand-primary text-white p-2 rounded-lg text-xl">🔥</div>
+                <div>
+                    <h4 class="font-bold text-brand-secondary">Bắt buộc: Khởi Động (5-7 phút)</h4>
+                    <p class="text-xs text-stone-600">Xoay khớp, Jumping Jacks, Chạy bước nhỏ.</p>
+                </div>
+            `;
+            warmupCard.onclick = () => alert("Hãy thực hiện: Xoay các khớp (cổ, vai, hông, gối), Chạy bước nhỏ tại chỗ, Vung tay.");
+            exerciseList.appendChild(warmupCard);
+
+            data.exercises.forEach((ex, index) => {
+                const card = document.createElement('div');
+                card.className = "mb-4 border border-stone-200 rounded-xl overflow-hidden card-hover bg-white";
+                
+                // Header of the card
+                card.innerHTML = `
+                    <div class="p-4 bg-white flex justify-between items-center cursor-pointer select-none" onclick="toggleDetails('ex-${index}')">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-stone-100 text-stone-600 font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${index + 1}</span>
+                            <div>
+                                <h4 class="font-bold text-brand-secondary text-base md:text-lg">${ex.name}</h4>
+                                <span class="text-xs md:text-sm font-bold text-brand-primary bg-orange-50 px-2 py-0.5 rounded">${ex.reps}</span>
+                            </div>
+                        </div>
+                        <span id="icon-ex-${index}" class="text-stone-400 transition-transform transform">▼</span>
+                    </div>
+                    
+                    <!-- Expanded Details -->
+                    <div id="ex-${index}" class="hidden bg-stone-50 border-t border-stone-100 p-4 animate-fade-in">
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <h5 class="font-bold text-xs uppercase text-stone-400 mb-1">Cách tập</h5>
+                                <p class="text-sm text-stone-700 leading-relaxed">${ex.guide}</p>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-xs uppercase text-red-400 mb-1">Lưu ý & Lỗi sai</h5>
+                                <p class="text-sm text-stone-600 italic border-l-2 border-red-300 pl-2">${ex.tips}</p>
+                            </div>
+                        </div>
+                        ${ex.youtubeLink ? `
+                        <div class="text-right">
+                            <a href="${ex.youtubeLink}" target="_blank" class="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-bold text-sm bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                  <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+                                </svg>
+                                Xem Video Hướng Dẫn
+                            </a>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                exerciseList.appendChild(card);
+            });
+        }
+
+        // Global toggle function
+        window.toggleDetails = function(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        };
+
+        function renderNutritionTable() {
+            nutritionTableBody.innerHTML = '';
+            nutritionData.forEach(item => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-stone-50 transition-colors border-b border-stone-50';
+                row.innerHTML = `
+                    <td class="p-3 md:p-4 text-stone-500 font-semibold text-xs md:text-sm whitespace-nowrap">${item.group}</td>
+                    <td class="p-3 md:p-4 font-bold text-brand-secondary text-sm md:text-base whitespace-nowrap">${item.name}</td>
+                    <td class="p-3 md:p-4 text-stone-600 text-sm md:text-base">${item.cal}</td>
+                    <td class="p-3 md:p-4 text-xs md:text-sm text-stone-500 italic min-w-[150px]">${item.benefit}</td>
+                `;
+                nutritionTableBody.appendChild(row);
+            });
+        }
+
+        function renderNutritionChart() {
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            
+            // Filter specific representative items for chart clarity
+            const chartItems = [
+                {name: 'Dưa leo', val: 15, col: '#86EFAC'}, // Green
+                {name: 'Bông cải', val: 34, col: '#22C55E'},
+                {name: 'Đậu hũ', val: 76, col: '#FCD34D'},
+                {name: 'Khoai lang', val: 86, col: '#FDBA74'},
+                {name: 'Ức gà', val: 165, col: '#F97316'}, // Brand Orange
+                {name: 'Bò', val: 250, col: '#EF4444'},
+                {name: 'Yến mạch', val: 389, col: '#A8A29E'},
+                {name: 'Hạnh nhân', val: 570, col: '#78350F'} // Dark Brown
+            ];
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: chartItems.map(i => i.name),
+                    datasets: [{
+                        label: 'Calo trên 100g',
+                        data: chartItems.map(i => i.val),
+                        backgroundColor: chartItems.map(i => i.col),
+                        borderRadius: 4,
+                        barThickness: 20,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + ' kcal / 100g';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: 'Mật độ Calo (Càng thấp ăn càng no)' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Start App
+        init();
+
+    </script>
+</body>
+</html>
