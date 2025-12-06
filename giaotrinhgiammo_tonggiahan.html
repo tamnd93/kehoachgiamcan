@@ -28,7 +28,9 @@
                         'brand-secondary': '#78350F', // Dark wood/stone
                         'brand-accent': '#F59E0B',
                         'brand-surface': '#FFFFFF',
-                        'brand-soft': '#FEF3C7'
+                        'brand-soft': '#FEF3C7',
+                        'brand-green': '#059669', // Emerald green for nutrition
+                        'brand-green-light': '#D1FAE5'
                     }
                 }
             }
@@ -88,7 +90,7 @@
         <header class="text-center space-y-4 mb-8">
             <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold text-brand-secondary">Giáo trình tăng cơ giảm mỡ của Tống Gia Hân</h1>
             <p class="text-base md:text-lg text-stone-600 max-w-2xl mx-auto">
-                Kế hoạch tập luyện tại nhà: Đơn giản - Hiệu quả - Bền bỉ.
+                Kế hoạch tập luyện & Dinh dưỡng tại nhà: Đơn giản - Hiệu quả - Bền bỉ.
                 <br>
                 <span class="text-brand-primary font-bold">Mục tiêu:</span> Săn chắc cơ thể, giảm mỡ, tăng cơ.
             </p>
@@ -132,7 +134,7 @@
                         <h2 class="text-lg md:text-xl font-bold text-white flex items-center gap-2">
                             📅 Lịch Tập Tuần
                         </h2>
-                        <p class="text-orange-100 text-sm mt-1">Chọn ngày để xem bài tập</p>
+                        <p class="text-orange-100 text-sm mt-1">Chọn ngày để xem bài tập & thực đơn</p>
                     </div>
                     <div class="p-2 space-y-2" id="weekScheduler">
                         <!-- JS will populate buttons here -->
@@ -141,7 +143,7 @@
 
                 <!-- Nutrition Summary Widget -->
                 <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-4 md:p-6">
-                    <h3 class="font-bold text-brand-secondary mb-4 text-lg">💡 Góc Dinh Dưỡng</h3>
+                    <h3 class="font-bold text-brand-secondary mb-4 text-lg">💡 Góc Kiến Thức</h3>
                     <p class="text-sm text-stone-600 mb-4">
                         So sánh lượng Calo (trên 100g) để chọn thực phẩm thông minh.
                         <br>
@@ -159,7 +161,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: WORKOUT DISPLAY (8 cols) -->
+            <!-- RIGHT COLUMN: WORKOUT & MENU DISPLAY (8 cols) -->
             <div class="lg:col-span-8 order-1 lg:order-2">
                 
                 <!-- Dynamic Content Area -->
@@ -182,11 +184,29 @@
                     </div>
 
                     <!-- Scrollable Exercises List -->
-                    <div class="flex-1 p-4 md:p-6 overflow-y-auto" id="exerciseList">
-                        <!-- JS will render exercises here -->
-                        <div class="flex items-center justify-center h-full text-stone-400">
-                            Chọn một ngày để bắt đầu tập luyện
+                    <div class="flex-1 p-4 md:p-6 overflow-y-auto" id="mainContentScroll">
+                        
+                        <!-- Exercises Section -->
+                        <div id="exerciseSection">
+                            <!-- JS will render exercises here -->
                         </div>
+
+                        <!-- Menu Section Separator -->
+                        <div id="menuSeparator" class="my-8 border-t-2 border-dashed border-brand-green/30 relative hidden">
+                            <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-brand-green font-bold flex items-center gap-2">
+                                🍽️ Thực Đơn Gợi Ý
+                            </span>
+                        </div>
+
+                        <!-- Menu Section -->
+                        <div id="menuSection" class="hidden bg-brand-green-light/30 rounded-2xl p-4 md:p-6 border border-brand-green/20">
+                           <!-- JS will render menu here -->
+                        </div>
+
+                        <div id="emptyState" class="flex items-center justify-center h-40 text-stone-400 hidden">
+                            Chọn một ngày để bắt đầu
+                        </div>
+
                     </div>
 
                     <!-- Footer / Warmup Reminder -->
@@ -273,7 +293,17 @@
                     { name: 'Lunges', reps: '10 lần/bên', guide: 'Bước dài chân tới trước, hạ trọng tâm sao cho 2 gối vuông góc 90 độ.', tips: 'Lưng thẳng đứng, gối trước không quá mũi chân.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+lunges' },
                     { name: 'Plank', reps: '30 - 45 giây', guide: 'Chống khuỷu tay, giữ người thẳng tắp như tấm ván.', tips: 'Gồng chặt bụng và mông. Không nhổm mông cao.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+plank' },
                     { name: 'Jumping Jacks', reps: '20 - 30 lần', guide: 'Bật nhảy tách chân vung tay, rồi khép lại.', tips: 'Tăng nhịp tim, hít thở đều.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+jumping+jacks' }
-                ]
+                ],
+                menu: {
+                    breakfast: '2 lát bánh mì đen + 2 trứng ốp la (ít dầu) + Dưa leo.',
+                    breakfastAlt: 'Yến mạch ngâm sữa chua (để qua đêm) + Hạt chia.',
+                    lunch: '1 chén cơm gạo lứt + 150g ức gà xào nấm + Rau cải luộc.',
+                    lunchAlt: 'Nui gạo lứt xào thịt bò + Bông cải xanh.',
+                    snack: '1 quả táo + 1 hũ sữa chua không đường.',
+                    snackAlt: '1 quả chuối + 1 thanh Protein bar.',
+                    dinner: '1 củ khoai lang nhỏ + Salad ức gà xé phay (sốt chanh dây/dầu giấm).',
+                    dinnerAlt: 'Cá hấp gừng + Rau muống luộc + 1/2 chén cơm.'
+                }
             },
             { 
                 id: 'tue', 
@@ -282,7 +312,17 @@
                 title: 'Nghỉ Ngơi hoặc Vận Động Nhẹ', 
                 desc: 'Đi bộ nhẹ nhàng, Yoga hoặc nghỉ hoàn toàn để cơ phục hồi.', 
                 rounds: 'Thư giãn',
-                exercises: []
+                exercises: [],
+                menu: {
+                    breakfast: 'Phở gạo lứt (hoặc bún) bò tái (chọn nạc, ít nước béo).',
+                    breakfastAlt: 'Bún chùm ngây nấu mọc (giò sống) + Rau sống.',
+                    lunch: '1 chén cơm gạo lứt + Cá thu sốt cà chua + Canh rau ngót thịt băm.',
+                    lunchAlt: 'Cơm trắng + Đậu hũ non sốt cà (Chay) + Canh bí.',
+                    snack: '1 ly sữa đậu nành không đường.',
+                    snackAlt: 'Nước dừa tươi (không đường).',
+                    dinner: 'Ức gà luộc + Salad rau củ quả tổng hợp (Cà chua, xà lách, dưa leo).',
+                    dinnerAlt: 'Thịt heo nạc luộc cuốn bánh tráng rau sống (nước mắm chua ngọt).'
+                }
             },
             { 
                 id: 'wed', 
@@ -297,7 +337,17 @@
                     { name: 'Side Lying Leg Lift', reps: '12 lần/bên', guide: 'Nằm nghiêng, đá chân trên lên cao, giữ 1s rồi hạ chậm.', tips: 'Cố định hông, không đung đưa người.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+side+lying+leg+lift' },
                     { name: 'Calf Raises', reps: '20 lần', guide: 'Đứng thẳng, nhón gót chân lên cao hết cỡ.', tips: 'Có thể vịn tường giữ thăng bằng.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+calf+raises' },
                     { name: 'Wall Sit', reps: 'Max time (tối thiểu 30s)', guide: 'Dựa lưng vào tường, trượt xuống tư thế ngồi ghế không khí.', tips: 'Đùi song song sàn, lưng áp sát tường.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+wall+sit' }
-                ]
+                ],
+                menu: {
+                    breakfast: 'Yến mạch nấu sữa tươi không đường + Hạt chia.',
+                    breakfastAlt: '2 củ khoai lang luộc + 1 quả trứng luộc lòng đào.',
+                    lunch: '150g Phi lê cá diêu hồng/cá lóc áp chảo + Bún gạo lứt + Rau.',
+                    lunchAlt: 'Thịt bò xào hành tây, ớt chuông + Bún gạo lứt.',
+                    snack: '1 quả chuối (trước khi tập 45p).',
+                    snackAlt: '1 quả Lê hoặc Ổi.',
+                    dinner: 'Thịt bò xào bông cải xanh + 1/2 chén cơm gạo lứt.',
+                    dinnerAlt: 'Ức gà nướng tiêu + Bí nụ luộc chấm kho quẹt (ít mặn).'
+                }
             },
             { 
                 id: 'thu', 
@@ -306,7 +356,17 @@
                 title: 'Nghỉ Ngơi', 
                 desc: 'Ngủ đủ giấc và ăn uống điều độ.', 
                 rounds: 'Phục hồi',
-                exercises: []
+                exercises: [],
+                menu: {
+                    breakfast: '2 quả trứng luộc + 1 ly nước cam không đường.',
+                    breakfastAlt: 'Smoothie Chuối Bơ (ít sữa, không đường).',
+                    lunch: 'Cơm gạo lứt + Đậu hũ nhồi thịt sốt cà + Canh bí xanh.',
+                    lunchAlt: 'Cơm gạo lứt + Cá bống kho tộ (kho lạt) + Dưa leo.',
+                    snack: '1 nắm nhỏ hạt mix (hạnh nhân, óc chó).',
+                    snackAlt: '1 hũ Sữa chua Hy Lạp.',
+                    dinner: 'Cá hấp xì dầu + Rau muống luộc (Hạn chế tinh bột tối nay).',
+                    dinnerAlt: 'Canh sườn non nấu rau củ (cà rốt, khoai tây) - Ăn cái, húp ít nước.'
+                }
             },
             { 
                 id: 'fri', 
@@ -321,7 +381,17 @@
                     { name: 'Superman', reps: '12 lần', guide: 'Nằm sấp, nâng tay và chân rời sàn bằng cơ lưng dưới.', tips: 'Mắt nhìn xuống sàn, không ngửa cổ quá cao.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+superman+exercise' },
                     { name: 'Bicycle Crunch', reps: '20 lần', guide: 'Nằm ngửa, đạp chân như đạp xe, khuỷu tay này chạm gối kia.', tips: 'Xoay eo, không kéo cổ.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+bicycle+crunch' },
                     { name: 'Mountain Climbers', reps: '30 giây', guide: 'Tư thế plank cao, chạy nâng gối liên tục về phía ngực.', tips: 'Giữ hông thấp cố định.', youtubeLink: 'https://www.youtube.com/results?search_query=how+to+do+mountain+climbers' }
-                ]
+                ],
+                menu: {
+                    breakfast: 'Bánh cuốn (ít dầu hành, nhiều dưa leo) + Chả lụa (chọn loại uy tín).',
+                    breakfastAlt: 'Miến gà (chọn phần ức gà, bỏ da, nhiều rau).',
+                    lunch: 'Ức gà nướng mật ong (hoặc áp chảo) + Khoai tây nghiền (không bơ) + Salad.',
+                    lunchAlt: 'Mực xào dứa (thơm) và hành tây + Cơm gạo lứt.',
+                    snack: 'Sinh tố bơ (ít sữa đặc, dùng sữa tươi hoặc sữa chua).',
+                    snackAlt: 'Đu đủ chín (1 miếng vừa).',
+                    dinner: 'Canh chua cá lóc + 1/2 chén cơm trắng/gạo lứt.',
+                    dinnerAlt: 'Lườn ngỗng hun khói trộn Salad dầu giấm.'
+                }
             },
             { 
                 id: 'sat', 
@@ -330,7 +400,17 @@
                 title: 'Cardio Nhẹ / Giãn Cơ Sâu', 
                 desc: 'Đi bộ nhanh, chạy bộ nhẹ hoặc tập bài giãn cơ toàn thân.', 
                 rounds: '30-45 phút',
-                exercises: []
+                exercises: [],
+                menu: {
+                    breakfast: 'Bún bò Huế (bỏ nước béo, ăn nhiều rau, thịt nạc).',
+                    breakfastAlt: 'Hủ tiếu Nam Vang (ăn khô, kèm chén nước súp riêng, nhiều giá hẹ).',
+                    lunch: 'Cơm gạo lứt + Thịt nạc vai heo luộc + Cà pháo (ít) + Canh rau đay.',
+                    lunchAlt: 'Cơm gạo lứt + Trứng đúc thịt (ít dầu) + Dưa cải chua.',
+                    snack: 'Trái cây theo mùa (Ổi, mận, dưa hấu...).',
+                    snackAlt: 'Bánh Biscotti nguyên cám (2-3 lát).',
+                    dinner: 'Lẩu gà lá giang (ăn nhiều rau, gà, hạn chế ăn nhiều bún).',
+                    dinnerAlt: 'Bò nhúng dấm cuốn bánh tráng rau sống (nhiều rau).'
+                }
             },
             { 
                 id: 'sun', 
@@ -339,7 +419,17 @@
                 title: 'Nghỉ Hoàn Toàn', 
                 desc: 'Chuẩn bị tinh thần cho tuần mới.', 
                 rounds: '-',
-                exercises: []
+                exercises: [],
+                menu: {
+                    breakfast: 'Tự chọn món yêu thích (vừa phải).',
+                    breakfastAlt: 'Bánh mì ốp la chảo gang.',
+                    lunch: 'Bữa ăn xả hơi (Cheat Meal) - Ăn món bạn thèm nhưng kiểm soát lượng.',
+                    lunchAlt: 'Pizza đế mỏng (ăn 2-3 miếng kèm salad) hoặc Sushi.',
+                    snack: 'Nước ép trái cây.',
+                    snackAlt: 'Trà trái cây ít đường.',
+                    dinner: 'Salad nhẹ nhàng + Súp rau củ (thanh lọc cơ thể sau bữa trưa).',
+                    dinnerAlt: 'Cháo cá hồi đậu xanh.'
+                }
             }
         ];
 
@@ -363,7 +453,10 @@
         const displayDayName = document.getElementById('displayDayName');
         const displayDesc = document.getElementById('displayDesc');
         const displayRounds = document.getElementById('displayRounds');
-        const exerciseList = document.getElementById('exerciseList');
+        const exerciseSection = document.getElementById('exerciseSection');
+        const menuSection = document.getElementById('menuSection');
+        const menuSeparator = document.getElementById('menuSeparator');
+        const emptyState = document.getElementById('emptyState');
         const nutritionTableBody = document.getElementById('nutritionTableBody');
 
         // --- INIT ---
@@ -407,95 +500,135 @@
             
             // Animate transition
             const contentArea = document.getElementById('workoutDisplay');
-            contentArea.classList.add('opacity-50');
-            setTimeout(() => contentArea.classList.remove('opacity-50'), 200);
+            // Reset scroll
+            document.getElementById('mainContentScroll').scrollTop = 0;
 
             displayDayName.textContent = data.day;
             displayTitle.textContent = data.title;
             displayDesc.textContent = data.desc;
             displayRounds.textContent = data.rounds;
 
-            exerciseList.innerHTML = '';
+            exerciseSection.innerHTML = '';
+            menuSection.innerHTML = '';
+            menuSection.classList.add('hidden');
+            menuSeparator.classList.add('hidden');
+            emptyState.classList.add('hidden');
 
+            // --- RENDER EXERCISES ---
             if (data.type === 'rest') {
-                exerciseList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full text-center space-y-4 p-8">
+                exerciseSection.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-8 text-center space-y-4">
                         <div class="text-6xl">🌿</div>
                         <h3 class="text-xl font-bold text-stone-600">Hôm nay là ngày nghỉ</h3>
                         <p class="text-stone-500 max-w-md">Cơ bắp cần thời gian để phục hồi và phát triển. Hãy thư giãn, ngủ đủ giấc hoặc đi dạo nhẹ nhàng.</p>
                     </div>
                 `;
-                return;
-            }
-
-            if (data.exercises.length === 0 && data.type !== 'rest') {
-                 exerciseList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-full text-center space-y-4 p-8">
+            } else if (data.exercises.length === 0) {
+                 exerciseSection.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-8 text-center space-y-4">
                         <div class="text-6xl">👟</div>
                         <h3 class="text-xl font-bold text-stone-600">Hoạt động tự do</h3>
                         <p class="text-stone-500 max-w-md">${data.desc}</p>
                     </div>
                 `;
-                return;
-            }
-
-            // Render Exercises
-            // Add Warmup Reminder Card at top
-            const warmupCard = document.createElement('div');
-            warmupCard.className = "mb-6 p-4 bg-orange-50 border border-orange-200 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-orange-100 transition-colors";
-            warmupCard.innerHTML = `
-                <div class="bg-brand-primary text-white p-2 rounded-lg text-xl">🔥</div>
-                <div>
-                    <h4 class="font-bold text-brand-secondary">Bắt buộc: Khởi Động (5-7 phút)</h4>
-                    <p class="text-xs text-stone-600">Xoay khớp, Jumping Jacks, Chạy bước nhỏ.</p>
-                </div>
-            `;
-            warmupCard.onclick = () => alert("Hãy thực hiện: Xoay các khớp (cổ, vai, hông, gối), Chạy bước nhỏ tại chỗ, Vung tay.");
-            exerciseList.appendChild(warmupCard);
-
-            data.exercises.forEach((ex, index) => {
-                const card = document.createElement('div');
-                card.className = "mb-4 border border-stone-200 rounded-xl overflow-hidden card-hover bg-white";
-                
-                // Header of the card
-                card.innerHTML = `
-                    <div class="p-4 bg-white flex justify-between items-center cursor-pointer select-none" onclick="toggleDetails('ex-${index}')">
-                        <div class="flex items-center gap-3">
-                            <span class="bg-stone-100 text-stone-600 font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${index + 1}</span>
-                            <div>
-                                <h4 class="font-bold text-brand-secondary text-base md:text-lg">${ex.name}</h4>
-                                <span class="text-xs md:text-sm font-bold text-brand-primary bg-orange-50 px-2 py-0.5 rounded">${ex.reps}</span>
-                            </div>
-                        </div>
-                        <span id="icon-ex-${index}" class="text-stone-400 transition-transform transform">▼</span>
-                    </div>
-                    
-                    <!-- Expanded Details -->
-                    <div id="ex-${index}" class="hidden bg-stone-50 border-t border-stone-100 p-4 animate-fade-in">
-                        <div class="grid md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <h5 class="font-bold text-xs uppercase text-stone-400 mb-1">Cách tập</h5>
-                                <p class="text-sm text-stone-700 leading-relaxed">${ex.guide}</p>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-xs uppercase text-red-400 mb-1">Lưu ý & Lỗi sai</h5>
-                                <p class="text-sm text-stone-600 italic border-l-2 border-red-300 pl-2">${ex.tips}</p>
-                            </div>
-                        </div>
-                        ${ex.youtubeLink ? `
-                        <div class="text-right">
-                            <a href="${ex.youtubeLink}" target="_blank" class="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-bold text-sm bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                                  <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
-                                </svg>
-                                Xem Video Hướng Dẫn
-                            </a>
-                        </div>
-                        ` : ''}
+            } else {
+                // Add Warmup Reminder Card at top for Active days
+                const warmupCard = document.createElement('div');
+                warmupCard.className = "mb-6 p-4 bg-orange-50 border border-orange-200 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-orange-100 transition-colors";
+                warmupCard.innerHTML = `
+                    <div class="bg-brand-primary text-white p-2 rounded-lg text-xl">🔥</div>
+                    <div>
+                        <h4 class="font-bold text-brand-secondary">Bắt buộc: Khởi Động (5-7 phút)</h4>
+                        <p class="text-xs text-stone-600">Xoay khớp, Jumping Jacks, Chạy bước nhỏ.</p>
                     </div>
                 `;
-                exerciseList.appendChild(card);
-            });
+                warmupCard.onclick = () => alert("Hãy thực hiện: Xoay các khớp (cổ, vai, hông, gối), Chạy bước nhỏ tại chỗ, Vung tay.");
+                exerciseSection.appendChild(warmupCard);
+
+                data.exercises.forEach((ex, index) => {
+                    const card = document.createElement('div');
+                    card.className = "mb-4 border border-stone-200 rounded-xl overflow-hidden card-hover bg-white";
+                    
+                    card.innerHTML = `
+                        <div class="p-4 bg-white flex justify-between items-center cursor-pointer select-none" onclick="toggleDetails('ex-${index}')">
+                            <div class="flex items-center gap-3">
+                                <span class="bg-stone-100 text-stone-600 font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm">${index + 1}</span>
+                                <div>
+                                    <h4 class="font-bold text-brand-secondary text-base md:text-lg">${ex.name}</h4>
+                                    <span class="text-xs md:text-sm font-bold text-brand-primary bg-orange-50 px-2 py-0.5 rounded">${ex.reps}</span>
+                                </div>
+                            </div>
+                            <span id="icon-ex-${index}" class="text-stone-400 transition-transform transform">▼</span>
+                        </div>
+                        
+                        <div id="ex-${index}" class="hidden bg-stone-50 border-t border-stone-100 p-4 animate-fade-in">
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <h5 class="font-bold text-xs uppercase text-stone-400 mb-1">Cách tập</h5>
+                                    <p class="text-sm text-stone-700 leading-relaxed">${ex.guide}</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-xs uppercase text-red-400 mb-1">Lưu ý & Lỗi sai</h5>
+                                    <p class="text-sm text-stone-600 italic border-l-2 border-red-300 pl-2">${ex.tips}</p>
+                                </div>
+                            </div>
+                            ${ex.youtubeLink ? `
+                            <div class="text-right">
+                                <a href="${ex.youtubeLink}" target="_blank" class="inline-flex items-center gap-1 text-red-600 hover:text-red-700 font-bold text-sm bg-red-50 hover:bg-red-100 px-3 py-2 rounded-lg transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                      <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+                                    </svg>
+                                    Xem Video Hướng Dẫn
+                                </a>
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    exerciseSection.appendChild(card);
+                });
+            }
+
+            // --- RENDER MENU ---
+            if (data.menu) {
+                menuSeparator.classList.remove('hidden');
+                menuSection.classList.remove('hidden');
+                menuSection.innerHTML = `
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="bg-white p-3 rounded-lg border-l-4 border-yellow-400 shadow-sm flex items-start gap-3">
+                            <span class="text-2xl">🍳</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-stone-700 text-sm uppercase">Sáng</h4>
+                                <p class="text-stone-700 font-bold text-sm mt-1">${data.menu.breakfast}</p>
+                                <p class="text-stone-500 text-xs mt-1 italic"><span class="font-bold text-brand-secondary">Hoặc:</span> ${data.menu.breakfastAlt}</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border-l-4 border-orange-500 shadow-sm flex items-start gap-3">
+                            <span class="text-2xl">🍱</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-stone-700 text-sm uppercase">Trưa</h4>
+                                <p class="text-stone-700 font-bold text-sm mt-1">${data.menu.lunch}</p>
+                                <p class="text-stone-500 text-xs mt-1 italic"><span class="font-bold text-brand-secondary">Hoặc:</span> ${data.menu.lunchAlt}</p>
+                            </div>
+                        </div>
+                         <div class="bg-white p-3 rounded-lg border-l-4 border-blue-400 shadow-sm flex items-start gap-3">
+                            <span class="text-2xl">🥛</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-stone-700 text-sm uppercase">Bữa Phụ</h4>
+                                <p class="text-stone-700 font-bold text-sm mt-1">${data.menu.snack}</p>
+                                <p class="text-stone-500 text-xs mt-1 italic"><span class="font-bold text-brand-secondary">Hoặc:</span> ${data.menu.snackAlt}</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border-l-4 border-green-500 shadow-sm flex items-start gap-3">
+                            <span class="text-2xl">🥗</span>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-stone-700 text-sm uppercase">Tối</h4>
+                                <p class="text-stone-700 font-bold text-sm mt-1">${data.menu.dinner}</p>
+                                <p class="text-stone-500 text-xs mt-1 italic"><span class="font-bold text-brand-secondary">Hoặc:</span> ${data.menu.dinnerAlt}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
         }
 
         // Global toggle function
